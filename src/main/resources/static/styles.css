@@ -1,0 +1,523 @@
+:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#172033;background:#f4f6fb;font-synthesis:none}*{box-sizing:border-box}body{margin:0}header{padding:26px max(22px,calc((100% - 1180px)/2));background:#101b35;color:white;display:flex;align-items:center;justify-content:space-between;gap:16px}header p{color:#bfc9de;margin:0}.brand{font-size:25px;font-weight:800;letter-spacing:-.8px}.brand span{color:#83b5ff}main{max-width:1180px;margin:32px auto;padding:0 20px}.panel{background:white;border:1px solid #e4e8f0;border-radius:16px;padding:24px;margin-bottom:22px;box-shadow:0 5px 20px #1d2c4b08}#auth{max-width:470px;margin:44px auto}h1,h2{margin-top:0;letter-spacing:-.4px}h1{font-size:25px}h2{font-size:18px}.tabs{display:flex;gap:8px;margin-bottom:25px}.tabs button,.secondary{background:#eef2f9;color:#273752;border:0;border-radius:8px;padding:10px 14px;cursor:pointer}.tabs button.active{background:#dceaff;color:#164c9b;font-weight:700}label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:650;margin-bottom:15px;color:#35415a}input,select{width:100%;border:1px solid #d7deea;border-radius:8px;padding:11px 12px;font:inherit;color:#172033;background:white}input:focus,select:focus{outline:2px solid #a9ccff;border-color:#4787df}button{font:inherit}.primary{background:#245fca;color:white;border:0;border-radius:8px;padding:12px 16px;font-weight:700;cursor:pointer}.primary:hover{background:#174da9}form .primary{width:100%}.message{min-height:18px;color:#a32b2b;font-size:13px}.welcome{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.welcome h1{margin-bottom:5px}.welcome p{margin:0;color:#65728b}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:22px}.stats article{background:white;border:1px solid #e4e8f0;border-radius:13px;padding:18px}.stats span{display:block;color:#65728b;font-size:12px;margin-bottom:12px}.stats strong{font-size:22px;overflow-wrap:anywhere}.invoiceForm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}.invoiceForm label{margin:0}.tableHeading{display:flex;align-items:center;justify-content:space-between;gap:15px}.tableHeading input{max-width:300px}.tableWrap{overflow-x:auto;width:100%}
+table{border-collapse:collapse;width:100%;min-width:1100px;font-size:13px;white-space:nowrap}h,td{text-align:left;padding:13px 11px;border-bottom:1px solid #edf0f5}th{color:#68758c;font-weight:650;background:#fafbfe}td button{border:0;background:#eaf1ff;color:#1e55a4;border-radius:6px;padding:7px 9px;cursor:pointer;margin:2px}.status{display:inline-block;border-radius:20px;padding:5px 8px;background:#edf1f7;font-size:11px;font-weight:700}.status.PAID{background:#dff7e8;color:#146c3b}.status.OVERDUE{background:#ffdfdf;color:#a52323}.status.PARTIALLY_PAID{background:#fff0cc;color:#855500}footer{text-align:center;padding:25px;color:#7b879c;font-size:12px}@media(max-width:850px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.invoiceForm{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){header{align-items:flex-start;flex-direction:column}main{margin:18px auto;padding:0 12px}.panel{padding:17px}.stats{grid-template-columns:1fr 1fr}.stats strong{font-size:18px}.invoiceForm{grid-template-columns:1fr}.tableHeading{align-items:flex-start;flex-direction:column}.tableHeading input{max-width:none}.welcome{align-items:flex-start}.welcome h1{font-size:22px}}
+/* ===== InvoTracker Premium Dashboard Upgrade ===== */
+
+:root {
+    --page-bg: #f5f7fc;
+    --card-bg: #ffffff;
+    --text-main: #17233b;
+    --text-muted: #718096;
+    --border-soft: #e6eaf2;
+    --brand-blue: #4169e1;
+    --brand-blue-dark: #3154c6;
+    --sidebar-bg: #17233b;
+    --card-shadow: 0 8px 28px rgba(25, 42, 75, 0.045);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--page-bg);
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+header {
+    background: var(--sidebar-bg);
+    padding-top: 22px;
+    padding-bottom: 22px;
+    box-shadow: 0 4px 18px rgba(17, 31, 56, 0.12);
+}
+
+.brand {
+    font-size: 27px;
+    letter-spacing: -1px;
+}
+
+main {
+    max-width: 1440px;
+    margin: 30px auto;
+    padding: 0 28px;
+}
+
+.panel {
+    border: 1px solid var(--border-soft);
+    border-radius: 18px;
+    padding: 26px;
+    margin-bottom: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+}
+
+h2 {
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -0.4px;
+}
+
+.stats article {
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--card-shadow);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.stats article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(25, 42, 75, 0.08);
+}
+
+.stats span {
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+}
+
+.stats strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 25px;
+    letter-spacing: -0.6px;
+}
+
+.primary {
+    background: var(--brand-blue);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(65, 105, 225, 0.16);
+    transition: background 150ms ease, transform 150ms ease;
+}
+
+.primary:hover {
+    background: var(--brand-blue-dark);
+    transform: translateY(-1px);
+}
+
+input,
+select {
+    border-color: #dce3ef;
+    border-radius: 10px;
+    min-height: 42px;
+}
+
+input:focus,
+select:focus {
+    outline: 3px solid rgba(65, 105, 225, 0.12);
+    border-color: var(--brand-blue);
+}
+
+.status {
+    padding: 6px 10px;
+    letter-spacing: 0.2px;
+}
+
+th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #f7f9fd;
+}
+
+td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+tbody tr:hover {
+    background: #f8faff;
+}
+
+td button {
+    border-radius: 8px;
+    transition: background 150ms ease;
+}
+
+td button:hover {
+    background: #d9e6ff;
+}
+
+@media (max-width: 850px) {
+    main {
+        padding: 0 18px;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    main {
+        padding: 0 12px;
+    }
+
+    .panel {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+}
+
+/* Premium analytics chart layout */
+#statusChart,
+#paymentsChart,
+#riskChart {
+    display: block;
+    max-width: 100%;
+}
+
+.panel canvas {
+    max-height: 280px;
+}
+
+@media (max-width: 850px) {
+    .panel canvas {
+        max-height: 240px;
+    }
+}
+
+/* InvoTracker dashboard navigation foundation */
+@media (min-width: 1000px) {
+    body:has(#app:not([hidden])) {
+        background: #f4f6fb;
+    }
+
+    #app:not([hidden]) > .welcome {
+        background: #ffffff;
+        border: 1px solid #e6eaf2;
+        border-radius: 18px;
+        padding: 24px 28px;
+        box-shadow: 0 8px 28px rgba(25, 42, 75, 0.045);
+    }
+}
+
+#app:not([hidden]) > .stats article {
+    min-width: 0;
+    min-height: 112px;
+}
+
+#app:not([hidden]) > .stats article strong {
+    color: #244fc5;
+}
+
+#app:not([hidden]) .panel h2 {
+    margin-bottom: 22px;
+}
+
+#app:not([hidden]) .invoiceForm {
+    row-gap: 18px;
+}
+
+#app:not([hidden]) .tableHeading {
+    margin-bottom: 18px;
+}
+
+#app:not([hidden]) > .welcome {
+    border-radius: 18px !important;
+    border: 1px solid #e6eaf2 !important;
+    background: #ffffff !important;
+    padding: 24px 28px !important;
+    box-shadow: 0 8px 28px rgba(25, 42, 75, 0.045) !important;
+}
+
+/* ===== Premium InvoTracker Sidebar ===== */
+
+.dashboardLayout {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    width: 100%;
+}
+
+.sidebar {
+    flex: 0 0 235px;
+    min-width: 0;
+    min-height: 540px;
+    padding: 26px 18px;
+    background: #17233b;
+    color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(23, 35, 59, 0.12);
+    position: sticky;
+    top: 20px;
+}
+
+.sidebarBrand {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    margin-bottom: 38px;
+}
+
+.sidebarBrand span {
+    color: #83b5ff;
+}
+
+.sidebarLabel {
+    color: #91a0ba;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin: 0 10px 14px;
+}
+
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebarLink {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #c5cfe0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+.sidebarLink:hover,
+.sidebarLink.active {
+    background: #2b3c5b;
+    color: #ffffff;
+}
+
+.sidebarLink.active {
+    box-shadow: inset 3px 0 #83b5ff;
+}
+
+.sidebarFooter {
+    margin-top: 48px;
+    padding: 14px 10px 0;
+    border-top: 1px solid #34415a;
+    color: #91a0ba;
+    font-size: 11px;
+}
+
+.dashboardContent {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+@media (max-width: 850px) {
+    .dashboardLayout {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        flex-basis: auto;
+        padding: 18px;
+    }
+
+    .sidebarBrand {
+        margin-bottom: 18px;
+    }
+
+    .sidebarNav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebarFooter {
+        margin-top: 18px;
+    }
+
+    .dashboardContent {
+        width: 100%;
+    }
+}
+
+:root {
+    --it-navy: #17233b;
+    --it-blue: #356df3;
+    --it-text: #202b3c;
+    --it-muted: #718096;
+    --it-border: #e7ebf2;
+    --it-surface: #ffffff;
+    --it-background: #f5f7fb;
+}
+
+body {
+    background: var(--it-background);
+    color: var(--it-text);
+}
+
+.dashboardLayout {
+    gap: 24px;
+}
+
+.sidebar {
+    background: var(--it-navy);
+    border: 1px solid #243450;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(23, 35, 59, 0.12);
+}
+
+.sidebarLink {
+    padding: 13px 14px;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebarLink:hover,
+.sidebarLink.active {
+    background: #2a3b5a;
+    color: #ffffff;
+}
+
+.sidebarLink.active {
+    box-shadow: inset 3px 0 #83b5ff;
+}
+
+.dashboardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+#dashboardHome .welcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 26px 28px;
+    background: #ffffff;
+    border: 1px solid var(--it-border);
+    border-radius: 18px;
+    box-shadow: 0 5px 22px rgba(25, 42, 75, 0.035);
+}
+
+#dashboardHome h1 {
+    margin: 4px 0 8px;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -0.8px;
+}
+
+.eyebrow {
+    margin: 0;
+    color: var(--it-blue);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.stats {
+    gap: 16px;
+}
+
+.stats article {
+    padding: 22px;
+    background: var(--it-surface);
+    border: 1px solid var(--it-border);
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(25, 42, 75, 0.035);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stats article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(25, 42, 75, 0.075);
+}
+
+.stats article span {
+    color: var(--it-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stats article strong {
+    display: block;
+    margin-top: 12px;
+    color: var(--it-text);
+    font-size: clamp(20px, 2vw, 27px);
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.panel {
+    border: 1px solid var(--it-border);
+    border-radius: 18px;
+    box-shadow: 0 5px 22px rgba(25, 42, 75, 0.035);
+}
+
+.panel h2 {
+    color: var(--it-text);
+    letter-spacing: -0.35px;
+}
+
+input,
+select,
+textarea {
+    border-color: #dce3ed;
+    border-radius: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--it-blue);
+    box-shadow: 0 0 0 3px rgba(53, 109, 243, 0.12);
+}
+
+button.primary {
+    background: var(--it-blue);
+    border-radius: 10px;
+    font-weight: 700;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+button.primary:hover {
+    filter: brightness(0.96);
+    transform: translateY(-1px);
+}
+
+.tableWrap {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead th {
+    background: #f7f9fc;
+    color: #66748a;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+}
+
+tbody tr:hover {
+    background: #f8faff;
+}
+
+@media (max-width: 600px) {
+    #dashboardHome .welcome {
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .stats article {
+        padding: 16px;
+    }
+}
+/* ===== InvoTracker Professional Dashboard Upgrade ===== */

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InvoTracker</title><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header><div class="brand">Invo<span>Tracker</span></div><p>Multipurpose invoice tracking</p></header>
+<main>
+  <section id="auth" class="panel">
+    <div class="tabs"><button id="showLogin" class="active">Login</button><button id="showRegister">Create account</button></div>
+    <form id="loginForm">
+      <h1>Welcome back</h1><label>Email<input name="email" type="email" required autocomplete="username"></label>
+      <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="primary" type="submit">Login</button>
+    </form>
+    <form id="registerForm" hidden>
+      <h1>Create your business account</h1>
+      <label>Business name<input name="businessName" maxlength="120" required></label>
+      <label>Business type<select name="industry" required>
+        <option value="small-business">Small business</option><option value="grocery">Grocery store</option>
+        <option value="freelancer">Freelancer</option><option value="manufacturing">Manufacturing</option>
+        <option value="transport">Transport</option><option value="healthcare">Healthcare</option><option value="other">Other</option>
+      </select></label>
+      <label>Email<input name="email" type="email" required autocomplete="email"></label>
+      <label>Password (minimum 8 characters)<input name="password" type="password" minlength="8" maxlength="72" required autocomplete="new-password"></label>
+      <button class="primary" type="submit">Create account</button>
+    </form>
+    <p id="authMessage" class="message" role="status"></p>
+  </section>
+  <section id="app" hidden>
+
+    <div class="dashboardLayout">
+      <aside class="sidebar">
+        <div class="sidebarBrand">Invo<span>Tracker</span></div>
+        <p class="sidebarLabel">WORKSPACE</p>
+        <nav class="sidebarNav" aria-label="Dashboard navigation">
+          <a href="#dashboardHome" class="sidebarLink active">Dashboard</a>
+          <a href="#invoiceForm" class="sidebarLink">Create Invoice</a>
+          <a href="#statusChart" class="sidebarLink">Analytics</a>
+          <a href="#invoiceRows" class="sidebarLink">Invoices</a>
+        </nav>
+        <div class="sidebarFooter">Invoice Management</div>
+      </aside>
+      <div class="dashboardContent">
+
+
+        <div id="dashboardHome">
+          <div class="welcome">
+            <div>
+              <p class="eyebrow">BUSINESS OVERVIEW</p>
+              <h1 id="businessTitle">Dashboard</h1>
+              <p id="businessMeta"></p>
+            </div>
+            <button id="logoutButton" class="secondary">Log out</button>
+          </div>
+        </div>
+
+    <div class="stats">
+      <article><span>Invoices</span><strong id="count">0</strong></article>
+      <article><span>Total invoiced</span><strong id="invoiced">₹0.00</strong></article>
+      <article><span>Collected</span><strong id="paid">₹0.00</strong></article>
+      <article><span>Outstanding</span><strong id="outstanding">₹0.00</strong></article>
+      <article><span>Overdue</span><strong id="overdue">0</strong></article>
+    </div>
+    <section class="panel">
+      <h2>Create invoice</h2>
+
+      <section class="panel">
+        <h2>Invoice Analytics</h2>
+        <div class="stats">
+          <article>
+            <span>Invoice Status</span>
+            <canvas id="statusChart"></canvas>
+          </article>
+          <article>
+            <span>Payments & Outstanding</span>
+            <canvas id="paymentsChart"></canvas>
+          </article>
+          <article>
+            <span>Invoice Risk Levels</span>
+            <canvas id="riskChart"></canvas>
+          </article>
+        </div>
+      </section>
+
+      <form id="invoiceForm" class="invoiceForm">
+        <label>Invoice number<input name="invoiceNumber" maxlength="60" required></label>
+        <label>Customer name<input name="customerName" maxlength="160" required></label>
+        <label>Customer email (optional)
+          <input name="customerEmail" type="email" maxlength="254" placeholder="customer@example.com">
+        </label>
+
+        <label>Customer GSTIN (optional)
+          <input name="customerGstin" maxlength="20" placeholder="Enter customer GSTIN">
+        </label>
+
+        <label>GST Rate
+          <select name="gstRate" required>
+            <option value="18" selected>18% (Standard)</option>
+            <option value="0">0%</option>
+            <option value="5">5%</option>
+            <option value="12">12%</option>
+            <option value="28">28%</option>
+          </select>
+        </label>
+
+        <label>Taxable amount before GST (₹)<input name="totalAmount" type="number" min="0.01" step="0.01" required></label>        <label>Issue date<input name="issueDate" type="date" required></label>
+        <label>Due date<input name="dueDate" type="date" required></label>
+        <button class="primary" type="submit">Save invoice</button>
+      </form>
+      <p id="invoiceMessage" class="message" role="status"></p>
+    </section>
+    <section class="panel">
+      <div class="tableHeading"><h2>Invoices</h2><input id="search" placeholder="Search invoice or customer…" aria-label="Search invoices"></div>
+      <div class="tableWrap"><table><thead>
+      <tr>
+        <th>Invoice</th>
+        <th>Customer</th>
+        <th>Total</th>
+        <th>Paid</th>
+        <th>Balance</th>
+        <th>Due date</th>
+        <th>Risk Score</th>
+        <th>Risk Level</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead><tbody id="invoiceRows"></tbody></table></div>
+
+    </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>InvoTracker · MVP · Keep business records accurate and backed up.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="/app.js"></script>
+
+</body></html>

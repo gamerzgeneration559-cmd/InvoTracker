@@ -1,0 +1,13 @@
+# Build output
+target/
+
+# IntelliJ files
+.idea/
+*.iml
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+application-local.properties
+src/main/resources/application.properties

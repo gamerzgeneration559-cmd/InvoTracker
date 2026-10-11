@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101828">
+    <meta name="description" content="InvoTracker helps businesses manage invoices, monitor payments, and understand cash flow.">
+    <title>InvoTracker — Invoicing, made clear</title>
+    <style>
+        :root {
+            --ink: #17233b;
+            --muted: #69768b;
+            --blue: #4169e1;
+            --light: #f5f7fc;
+            --line: #e6eaf2;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: white;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+        }
+        a { color: inherit; text-decoration: none; }
+        .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+
+        nav {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .logo { font-size: 24px; font-weight: 850; letter-spacing: -1px; }
+        .logo span { color: var(--blue); }
+        .navlinks { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 600; }
+        .navlinks a:not(.btn):hover { color: var(--blue); }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 19px;
+            border-radius: 10px;
+            background: var(--blue);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            border: 1px solid var(--blue);
+            transition: transform .2s, background .2s;
+        }
+        .btn:hover { background: #3154c6; transform: translateY(-1px); }
+        .btn-outline { background: white; color: var(--ink); border-color: var(--line); }
+        .btn-outline:hover { background: var(--light); color: var(--ink); }
+
+        .hero {
+            padding: 80px 0 84px;
+            background:
+                    radial-gradient(ellipse at 85% 25%, rgba(109,145,255,.16), transparent 35%),
+                    linear-gradient(180deg, #fbfcff, #fff);
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 55px;
+        }
+        .eyebrow {
+            display: inline-flex;
+            padding: 7px 12px;
+            border: 1px solid #dce5ff;
+            border-radius: 30px;
+            color: #3154c6;
+            background: #f0f4ff;
+            font-size: 12px;
+            font-weight: 750;
+            letter-spacing: .5px;
+        }
+        h1 {
+            font-size: clamp(38px, 5vw, 60px);
+            line-height: 1.08;
+            letter-spacing: -2.8px;
+            margin: 23px 0;
+        }
+        h1 span { color: var(--blue); }
+        .hero-copy { max-width: 510px; color: var(--muted); font-size: 17px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .trust { margin-top: 22px; color: var(--muted); font-size: 12px; }
+
+        .preview {
+            padding: 20px;
+            border: 1px solid #e3e8f2;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 25px 80px rgba(26, 46, 89, .13);
+            transform: rotate(1deg);
+        }
+        .preview-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .preview-label { color: var(--muted); font-size: 12px; }
+        .preview-title { font-size: 17px; font-weight: 800; }
+        .preview-amount { font-size: 30px; font-weight: 850; letter-spacing: -1px; margin-top: 8px; }
+        .pill { padding: 5px 9px; border-radius: 20px; background: #e7f8ef; color: #147747; font-size: 11px; font-weight: 800; }
+        .preview-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0; }
+        .mini-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #fcfdff; }
+        .mini-card strong { display: block; font-size: 20px; margin-top: 5px; }
+        .mini-card small { color: var(--muted); font-size: 11px; }
+        .bars { display: flex; align-items: end; justify-content: space-around; height: 100px; padding-top: 12px; border-bottom: 1px solid var(--line); }
+        .bar { width: 9%; border-radius: 5px 5px 0 0; background: #a9bcff; }
+        .bar:nth-child(2), .bar:nth-child(5) { background: var(--blue); }
+        .months { display: flex; justify-content: space-around; color: var(--muted); font-size: 10px; margin-top: 7px; }
+
+        .section { padding: 82px 0; }
+        .section-soft { background: var(--light); }
+        .section-heading { max-width: 650px; margin: 0 auto 42px; text-align: center; }
+        .section-heading h2 { margin: 0 0 12px; font-size: clamp(28px, 3vw, 40px); letter-spacing: -1.4px; line-height: 1.2; }
+        .section-heading p { color: var(--muted); margin: 0; }
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .feature { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 25px; }
+        .feature-icon { display: grid; place-items: center; width: 45px; height: 45px; border-radius: 12px; background: #edf2ff; color: var(--blue); font-size: 21px; }
+        .feature h3 { font-size: 17px; margin: 18px 0 8px; }
+        .feature p { color: var(--muted); font-size: 14px; margin: 0; }
+
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .step-number { color: var(--blue); font-weight: 850; font-size: 13px; letter-spacing: 1px; }
+        .steps h3 { margin: 8px 0; }
+        .steps p { color: var(--muted); font-size: 14px; }
+
+        .cta {
+            background: #17233b;
+            color: white;
+            padding: 55px 35px;
+            border-radius: 22px;
+            text-align: center;
+        }
+        .cta h2 { font-size: clamp(27px, 4vw, 40px); line-height: 1.2; margin: 0 0 12px; letter-spacing: -1px; }
+        .cta p { color: #c4cede; margin: 0 0 25px; }
+        footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: 12px; }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+
+        @media (max-width: 800px) {
+            .hero { padding: 55px 0; }
+            .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+            .preview { transform: none; }
+            .features { grid-template-columns: 1fr 1fr; }
+            .steps { gap: 15px; }
+            .navlinks { gap: 14px; }
+        }
+        @media (max-width: 540px) {
+            .container { width: min(100% - 28px, 1120px); }
+            nav { height: 68px; }
+            .logo { font-size: 21px; }
+            .navlinks { gap: 10px; font-size: 12px; }
+            .navlinks .nav-about { display: none; }
+            .navlinks .btn { padding: 9px 11px; }
+            h1 { letter-spacing: -1.8px; }
+            .features, .steps { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+            .cta { padding: 38px 20px; }
+        }
+    </style>
+</head>
+<body>
+<header class="container">
+    <nav aria-label="Main navigation">
+        <a class="logo" href="/landing.html">Invo<span>Tracker</span></a>
+        <div class="navlinks">
+            <a class="nav-about" href="#features">Features</a>
+            <a class="nav-about" href="#how-it-works">How it works</a>
+            <a href="/index.html">Log in</a>
+            <a class="btn" href="/index.html">Open app <span aria-hidden="true">↗</span></a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow">SMARTER INVOICE MANAGEMENT</span>
+                <h1>Spend less time chasing payments. <span>Run business better.</span></h1>
+                <p class="hero-copy">
+                    Keep invoices organized, track outstanding payments, and get a clearer
+                    view of your business finances—all in one place.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn" href="/index.html">Get started <span aria-hidden="true">→</span></a>
+                    <a class="btn btn-outline" href="#features">Explore features</a>
+                </div>
+                <p class="trust">Clear records. Better visibility. More control.</p>
+            </div>
+
+            <div class="preview" aria-label="Illustrative invoice analytics preview">
+                <div class="preview-top">
+                    <div>
+                        <div class="preview-label">BUSINESS OVERVIEW</div>
+                        <div class="preview-title">Invoice performance</div>
+                    </div>
+                    <span class="pill">Illustrative preview</span>
+                </div>
+                <div class="preview-stats">
+                    <div class="mini-card">
+                        <small>Total invoiced</small>
+                        <strong>₹1,24,500</strong>
+                        <small>Example figures</small>
+                    </div>
+                    <div class="mini-card">
+                        <small>Outstanding</small>
+                        <strong>₹28,400</strong>
+                        <small>Example figures</small>
+                    </div>
+                </div>
+                <div class="preview-label">Monthly invoicing activity</div>
+                <div class="bars" aria-hidden="true">
+                    <div class="bar" style="height:36%"></div>
+                    <div class="bar" style="height:55%"></div>
+                    <div class="bar" style="height:43%"></div>
+                    <div class="bar" style="height:73%"></div>
+                    <div class="bar" style="height:63%"></div>
+                    <div class="bar" style="height:90%"></div>
+                    <div class="bar" style="height:76%"></div>
+                </div>
+                <div class="months" aria-hidden="true">
+                    <span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Everything important, in one view</h2>
+                <p>Practical tools to help you keep your invoicing organized and make more informed business decisions.</p>
+            </div>
+            <div class="features">
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">▤</div>
+                    <h3>Invoice management</h3>
+                    <p>Create and organize invoices, review due dates, and keep your billing records accessible.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">₹</div>
+                    <h3>Payment visibility</h3>
+                    <p>See paid amounts, outstanding balances, and which invoices may need follow-up.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">↗</div>
+                    <h3>Business analytics</h3>
+                    <p>Review invoice summaries, payment patterns, and risk indicators from your dashboard.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">◷</div>
+                    <h3>Due-date awareness</h3>
+                    <p>Identify approaching and overdue invoices so important follow-ups are easier to plan.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">▥</div>
+                    <h3>Organized records</h3>
+                    <p>Keep your invoice information structured and available for everyday business work.</p>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">✓</div>
+                    <h3>Risk insights</h3>
+                    <p>Use invoice risk indicators as a helpful starting point for deciding what needs attention.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-soft" id="how-it-works">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Simple by design</h2>
+                <p>A straightforward workflow for managing invoices and monitoring payments.</p>
+            </div>
+            <div class="steps">
+                <article>
+                    <div class="step-number">STEP 01</div>
+                    <h3>Create an invoice</h3>
+                    <p>Enter the relevant invoice and payment details in your workspace.</p>
+                </article>
+                <article>
+                    <div class="step-number">STEP 02</div>
+                    <h3>Track its progress</h3>
+                    <p>Review payment status, outstanding amounts, and due dates.</p>
+                </article>
+                <article>
+                    <div class="step-number">STEP 03</div>
+                    <h3>Make informed decisions</h3>
+                    <p>Use your dashboard and analytics to prioritize follow-up and understand your records.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta">
+                <h2>Bring more clarity to your invoicing.</h2>
+                <p>Open your InvoTracker workspace and keep your business records organized.</p>
+                <a class="btn" href="/index.html">Open InvoTracker <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-inner">
+        <span class="logo">Invo<span>Tracker</span></span>
+        <span>Invoice management made clearer.</span>
+        <span>© <span id="year"></span> InvoTracker</span>
+    </div>
+</footer>
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
