@@ -1,0 +1,129 @@
+/* InvoTracker dashboard v4: isolated layout enhancements */
+#dashboardOverview { width: 100%; }
+#dashboardOverview > .suiteKpis { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin:0 0 18px; }
+#dashboardOverview > .suiteKpis article { min-height:112px; padding:18px; border-radius:14px; border:1px solid #e7ebf2; background:#fff; box-shadow:0 4px 18px #17233b08; }
+#dashboardOverview > .suiteKpis article::before { display:none; }
+#dashboardOverview > .suiteKpis span { display:block; color:#728099; font-size:12px; font-weight:650; }
+#dashboardOverview > .suiteKpis strong { display:block; margin-top:14px; font-size:clamp(18px,1.7vw,26px); color:#15243c; overflow-wrap:anywhere; }
+#dashboardOverview > .suiteKpis article:nth-child(3) { border-top:3px solid #10a37f; }
+#dashboardOverview > .suiteKpis article:nth-child(4) { border-top:3px solid #e9a23b; }
+#dashboardOverview > .suiteKpis article:nth-child(5) { border-top:3px solid #e35a64; }
+#dashboardOverview .suiteDashboardGrid { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(310px,1fr); gap:18px; align-items:start; }
+#dashboardOverview .suiteMainColumn, #dashboardOverview .suiteSideColumn { min-width:0; display:flex; flex-direction:column; gap:18px; }
+#dashboardOverview .suiteDashboardGrid .panel { margin:0; padding:20px; border-radius:15px; }
+#dashboardOverview .suiteMainColumn > .panel > h2, #dashboardOverview .suiteSideColumn > .panel > h2 { margin:0 0 8px; }
+#dashboardOverview .suiteMainColumn .stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+#dashboardOverview .suiteMainColumn .stats article { padding:16px; min-height:94px; }
+#dashboardOverview #monthlyRevenuePanel .monthlyChartContainer { height:280px; margin-top:12px; }
+#dashboardOverview #monthlyRevenueChart { max-height:280px !important; }
+#dashboardOverview #smartAlertsPanel .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+#dashboardOverview #smartAlertsPanel .stats article { min-width:0; padding:12px 9px; min-height:85px; }
+#dashboardOverview #smartAlertsPanel .stats article strong { font-size:clamp(15px,1.5vw,21px); overflow-wrap:anywhere; }
+#dashboardOverview #smartAlertsPanel .stats article span { font-size:11px; }
+#dashboardOverview #smartAlertsPanel .message { margin:12px 0 0; }
+.suiteInventoryNumbers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-top:16px; }
+.suiteInventoryNumbers > div { min-width:0; padding:12px; border:1px solid #e8edf3; border-radius:10px; background:#f8fafc; }
+.suiteInventoryNumbers span { display:block; font-size:11px; color:#718096; }
+.suiteInventoryNumbers strong { display:block; font-size:18px; margin-top:8px; overflow-wrap:anywhere; }
+.suiteStockTrack { height:9px; border-radius:99px; overflow:hidden; background:#e8eef4; margin-top:16px; }
+#dashStockFill { height:100%; width:0; background:#10a37f; border-radius:99px; transition:width .3s ease; }
+.suiteStockMessage { margin:9px 0 12px; }
+.suiteActionLink { display:inline-block; color:#078468; text-decoration:none; font-weight:700; font-size:13px; }
+.suiteActionGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+.suiteActionGrid a { display:block; text-decoration:none; text-align:center; padding:12px 8px; background:#eef8f5; color:#086c56; border:1px solid #d6eee5; border-radius:10px; font-weight:700; font-size:12px; }
+.suiteActionGrid a:hover { background:#d9f4e9; }
+#dashboardOverview .suitePriorityPanel { position:static; }
+#dashboardOverview .suitePriorityPanel .tableWrap { overflow:visible; border:0; }
+#dashboardOverview .suitePriorityTable { width:100%; min-width:0 !important; border-collapse:separate; border-spacing:0 9px; white-space:normal; }
+#dashboardOverview .suitePriorityTable thead { display:none; }
+#dashboardOverview .suitePriorityTable tbody tr { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px 12px; padding:12px; border:1px solid #e8edf3; border-radius:11px; background:#fafbfd; }
+#dashboardOverview .suitePriorityTable tbody td { display:block; min-width:0; padding:0; border:0; font-size:12px; overflow-wrap:anywhere; }
+#dashboardOverview .suitePriorityTable tbody td:first-child { grid-column:1/-1; font-size:13px; font-weight:800; color:#15243c; }
+#dashboardOverview .suitePriorityTable tbody td:nth-child(2)::before { content:'Invoice · '; color:#7b8497; font-weight:400; }
+#dashboardOverview .suitePriorityTable tbody td:nth-child(3)::before { content:'Due · '; color:#7b8497; font-weight:400; }
+#dashboardOverview .suitePriorityTable tbody td:nth-child(4)::before { content:'Date · '; color:#7b8497; font-weight:400; }
+#dashboardOverview .suitePriorityTable tbody td:nth-child(5) { justify-self:end; }
+#dashboardOverview .suitePriorityTable tbody td[colspan] { grid-column:1/-1; font-weight:400; }
+@media(max-width:1350px) { #dashboardOverview .suiteDashboardGrid { grid-template-columns:1fr; } }
+@media(max-width:1050px) { #dashboardOverview > .suiteKpis { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:650px) { #dashboardOverview > .suiteKpis { grid-template-columns:repeat(2,minmax(0,1fr)); } #dashboardOverview #smartAlertsPanel .stats { grid-template-columns:1fr; } #dashboardOverview .suiteInventoryNumbers { grid-template-columns:1fr 1fr; } #dashboardOverview .suiteMainColumn .stats { grid-template-columns:1fr; } }
+
+
+/* V4.1 — responsive readable dashboard cards */
+#dashboardOverview .suiteDashboardGrid {
+    grid-template-columns:minmax(0, 1.6fr) minmax(360px, 1fr);
+}
+#dashboardOverview .suiteSideColumn .stats,
+#dashboardOverview #smartAlertsPanel .stats {
+    display:grid;
+    grid-template-columns:1fr !important;
+    gap:10px;
+}
+#dashboardOverview #smartAlertsPanel .stats article {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    min-width:0;
+    min-height:68px;
+    padding:13px 15px;
+}
+#dashboardOverview #smartAlertsPanel .stats article span {
+    margin:0;
+    min-width:0;
+    font-size:12px;
+    line-height:1.4;
+}
+#dashboardOverview #smartAlertsPanel .stats article strong {
+    flex:0 0 auto;
+    margin:0;
+    font-size:clamp(17px,1.5vw,23px);
+    overflow-wrap:normal;
+    word-break:normal;
+    white-space:nowrap;
+}
+#dashboardOverview .suiteMainColumn .stats article strong,
+#dashboardOverview > .suiteKpis article strong {
+    font-size:clamp(17px,1.7vw,25px);
+    line-height:1.25;
+    overflow-wrap:normal;
+    word-break:normal;
+}
+#dashboardOverview .suiteMainColumn .stats {
+    grid-template-columns:repeat(2,minmax(200px,1fr));
+}
+#dashboardOverview .suiteMainColumn .stats article {
+    min-width:0;
+    padding:15px;
+}
+#dashboardOverview .suiteMainColumn .stats article span {
+    line-height:1.4;
+}
+#dashboardOverview .suiteInventoryNumbers {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+}
+#dashboardOverview .suiteInventoryNumbers strong {
+    font-size:clamp(14px,1.4vw,19px);
+    overflow-wrap:normal;
+    word-break:normal;
+}
+#dashboardOverview .suitePriorityTable tbody td {
+    word-break:normal;
+}
+@media(max-width:1350px) {
+    #dashboardOverview .suiteDashboardGrid {grid-template-columns:1fr;}
+}
+@media(max-width:720px) {
+    #dashboardOverview .suiteMainColumn .stats {grid-template-columns:1fr;}
+    #dashboardOverview .suiteInventoryNumbers {grid-template-columns:1fr;}
+}
+/* Inventory stock status colors */
+.stock-in {
+    color: #22c55e !important;
+    font-weight: 700;
+}
+
+.stock-low {
+    color: #ef4444 !important;
+    font-weight: 700;
+}

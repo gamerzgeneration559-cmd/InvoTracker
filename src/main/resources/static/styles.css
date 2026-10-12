@@ -521,3 +521,887 @@ tbody tr:hover {
     }
 }
 /* ===== InvoTracker Professional Dashboard Upgrade ===== */
+
+/* Premium Webcam Invoice Scanner */
+#webcamOcrSection {
+    margin-top: 24px;
+    padding: 28px;
+    background: var(--card-bg, #ffffff);
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+}
+
+#webcamOcrSection h2 {
+    margin: 0 0 8px;
+    color: #111827;    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+#webcamOcrSection p {
+    color: #6b7280;    font-size: 14px;
+    line-height: 1.6;
+}
+
+#ocrVideo {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    min-height: 220px;
+    margin-top: 18px;
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+#webcamOcrSection button {
+    padding: 11px 17px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+#webcamOcrSection button:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
+}
+
+#webcamOcrSection #startOcrCamera {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+}
+
+#webcamOcrSection #startOcrCamera:hover:not(:disabled) {
+    background: #273449;
+}
+
+#webcamOcrSection button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+#ocrStatus {
+    margin: 16px 0;
+    padding: 11px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 13px;
+}
+
+#webcamOcrSection label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #111827;    font-size: 13px;
+    font-weight: 600;
+}
+
+#webcamOcrSection #ocrResult {
+    display: block;
+    width: 100%;
+    min-height: 150px;
+    padding: 14px;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #fafafa;
+    color: #1f2937;
+    font: 13px/1.7 ui-monospace, monospace;
+    resize: vertical;
+    outline: none;
+}
+
+#webcamOcrSection #ocrResult:focus {
+    border-color: #64748b;
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.12);
+}
+
+@media (max-width: 600px) {
+    #webcamOcrSection {
+        padding: 18px;
+    }
+
+    #webcamOcrSection button {
+        flex: 1 1 140px;
+    }
+}
+/* ===== SMART PRO DASHBOARD V2 ===== */
+
+/* Keep hidden dashboard pages hidden */
+[data-view][hidden] {
+    display: none !important;
+}
+
+/* Professional dashboard spacing */
+.dashboardContent {
+    gap: 24px;
+}
+
+#dashboardOverview {
+    width: 100%;
+}
+
+/* Dashboard KPI cards */
+#dashboardOverview > .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#dashboardOverview .stats article {
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e6ebf4;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(20, 35, 65, 0.05);
+}
+
+#dashboardOverview .stats article::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #356df3;
+}
+
+#dashboardOverview .stats strong {
+    font-size: clamp(21px, 2.2vw, 30px);
+    color: #17233b;
+}
+
+/* Better analytics charts */
+#analyticsPage .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#analyticsPage .stats article {
+    min-width: 0;
+    min-height: 320px;
+    padding: 24px;
+}
+
+#analyticsPage .stats article:last-child {
+    grid-column: 1 / -1;
+}
+
+#analyticsPage canvas {
+    max-height: 270px;
+}
+
+/* Invoice page */
+#invoicesPage {
+    overflow: hidden;
+}
+
+#invoicesPage .tableWrap {
+    border: 1px solid #e6ebf4;
+    border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    #dashboardOverview > .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    #dashboardOverview > .stats,
+    #analyticsPage .stats {
+        grid-template-columns: 1fr;
+    }
+
+    #analyticsPage .stats article:last-child {
+        grid-column: auto;
+    }
+
+    #dashboardOverview .stats article {
+        min-height: 105px;
+        padding: 18px;
+    }
+}
+/* Smart Pro Payment Priority Badges */
+
+.priorityBadge {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.priorityHigh {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.priorityMedium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.priorityNormal {
+    background: #dcfce7;
+    color: #166534;
+}/* ===== REVENUE & COLLECTIONS ===== */
+
+#revenuePerformancePanel {
+    margin-top: 24px;
+}
+
+.collectionProgress {
+    width: 100%;
+    height: 14px;
+    background: #e9eef7;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 22px;
+}
+
+#collectionProgressBar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+.collectionSummary {
+    margin-top: 12px;
+    color: #64748b;
+    font-size: 14px;
+}
+/* ===== MONTHLY REVENUE CHART ===== */
+
+#monthlyRevenuePanel {
+    margin-top: 24px;
+}
+
+.monthlyChartContainer {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    margin-top: 20px;
+}
+
+#monthlyRevenueChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+/* ===== COLLECTION PERFORMANCE ===== */
+
+.collectionHealth {
+    margin-top: 22px;
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+.collectionHealthHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.healthBadge {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.healthExcellent {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.healthModerate {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.healthLow {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+#collectionHealthMessage {
+    margin-top: 12px;
+    color: #64748b;
+    font-size: 14px;
+}
+/* ===== InvoTracker Suite Sidebar Redesign ===== */
+
+@media (min-width: 851px) {
+    .dashboardLayout {
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .sidebar {
+        flex: 0 0 245px;
+        min-height: calc(100vh - 160px);
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        border-radius: 16px 0 0 16px;
+        background: #0b1630;
+        border: none;
+        box-shadow: none;
+    }
+
+    .dashboardContent {
+        padding: 24px;
+        background: #f4f5fa;
+        border-radius: 0 16px 16px 0;
+    }
+}
+
+.sidebarBrand {
+    font-size: 23px;
+    margin-bottom: 38px;
+}
+
+.sidebarNav {
+    gap: 5px;
+}
+
+.sidebarLink {
+    padding: 13px 15px;
+    border-radius: 11px;
+    font-size: 14px;
+}
+
+.sidebarLink.active {
+    background: #233251;
+    box-shadow: inset 4px 0 #10b981;
+    color: #ffffff;
+}
+
+.sidebarLink:hover {
+    background: #1c2b49;
+}
+
+.sidebarFooter {
+    color: #94a3b8;
+}
+
+/* ==========================================
+   INVOTRACKER SUITE — DASHBOARD DESIGN V3
+   ========================================== */
+
+:root {
+    --suite-navy: #0b1630;
+    --suite-bg: #f3f4f9;
+    --suite-white: #ffffff;
+    --suite-text: #111b33;
+    --suite-muted: #7b8497;
+    --suite-border: #e8eaf1;
+    --suite-green: #16a34a;
+    --suite-shadow: 0 2px 8px rgba(15, 23, 42, .035);
+}
+
+/* 1. MAIN WORKSPACE */
+
+body {
+    background: var(--suite-bg);
+}
+
+main {
+    max-width: 1600px;
+    padding: 0 24px;
+    margin: 24px auto;
+}
+
+.dashboardContent {
+    background: var(--suite-bg);
+    gap: 20px;
+}
+
+.dashboardContent > [data-view] {
+    min-width: 0;
+}
+
+/* 2. TOP HEADER */
+
+header {
+    background: #ffffff;
+    color: var(--suite-text);
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--suite-border);
+    box-shadow: none;
+}
+
+header .brand {
+    font-size: 23px;
+    color: var(--suite-navy);
+}
+
+header .brand span {
+    color: #0f9f76;
+}
+
+header p {
+    color: var(--suite-muted);
+    font-size: 13px;
+}
+
+/* 3. DASHBOARD WELCOME */
+
+#dashboardHome .welcome {
+    padding: 22px 26px;
+    border-radius: 15px;
+    background: #ffffff;
+    border: 1px solid var(--suite-border);
+    box-shadow: var(--suite-shadow);
+}
+
+#dashboardHome h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--suite-text);
+}
+
+#businessMeta {
+    color: var(--suite-muted);
+    font-size: 13px;
+}
+
+/* 4. SUMMARY CARDS */
+
+#dashboardOverview > .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+#dashboardOverview > .stats article {
+    min-height: 145px;
+    padding: 22px;
+    border-radius: 17px;
+    background: #ffffff;
+    border: 1px solid var(--suite-border);
+    box-shadow: var(--suite-shadow);
+}
+
+#dashboardOverview > .stats article::before {
+    display: none;
+}
+
+#dashboardOverview > .stats article span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--suite-muted);
+}
+
+#dashboardOverview > .stats article strong {
+    margin-top: 24px;
+    font-size: clamp(19px, 2vw, 27px);
+    font-weight: 800;
+    color: var(--suite-text);
+}
+
+#dashboardOverview > .stats article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, .07);
+}
+
+/* 5. PROFESSIONAL PANELS */
+
+.dashboardContent .panel {
+    background: var(--suite-white);
+    border: 1px solid var(--suite-border);
+    border-radius: 17px;
+    padding: 24px;
+    box-shadow: var(--suite-shadow);
+}
+
+.dashboardContent .panel h2 {
+    font-size: 17px;
+    font-weight: 750;
+    color: var(--suite-text);
+    margin-bottom: 12px;
+}
+
+.dashboardContent .panel p {
+    color: var(--suite-muted);
+    font-size: 13px;
+}
+
+/* 6. SMART BUSINESS CARDS */
+
+#dashboardOverview .stats article {
+    border-radius: 15px;
+}
+
+#dashboardOverview .stats article strong {
+    letter-spacing: -.6px;
+}
+
+#smartAlertsPanel {
+    margin-top: 24px;
+    background: #fbfcff;
+}
+
+#smartAlertsPanel .stats article {
+    border: 1px solid #e9edf4;
+    background: #ffffff;
+}
+
+/* 7. REVENUE & COLLECTIONS */
+
+#revenuePerformancePanel {
+    padding: 28px;
+}
+
+.collectionHealth {
+    background: #f8fafc;
+    border: 1px solid #e8edf5;
+    border-radius: 14px;
+}
+
+.collectionProgress {
+    height: 10px;
+    background: #edf1f6;
+}
+
+#collectionProgressBar {
+    background: linear-gradient(90deg, #059669, #22c55e);
+}
+
+/* 8. CHARTS */
+
+#monthlyRevenuePanel {
+    padding: 28px;
+}
+
+.monthlyChartContainer {
+    height: 310px;
+    margin-top: 20px;
+}
+
+#monthlyRevenueChart {
+    max-height: 310px !important;
+}
+
+#analyticsPage .stats article {
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid var(--suite-border);
+}
+
+/* 9. TABLES */
+
+.tableWrap {
+    border: 1px solid #edf0f5;
+    border-radius: 12px;
+    overflow-x: auto;
+}
+
+table {
+    background: #ffffff;
+}
+
+thead th {
+    background: #f9fafc;
+    color: #7a8495;
+    font-size: 11px;
+    letter-spacing: .5px;
+    padding: 16px 14px;
+}
+
+tbody td {
+    padding: 16px 14px;
+    color: #344054;
+}
+
+tbody tr:hover {
+    background: #f7fafc;
+}
+
+/* 10. STATUS INDICATORS */
+
+.status {
+    border-radius: 999px;
+    padding: 6px 11px;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.status.PAID {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status.OVERDUE {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.status.PARTIALLY_PAID {
+    background: #fef3c7;
+    color: #a16207;
+}
+
+.priorityBadge {
+    border-radius: 999px;
+}
+
+/* 11. BUTTONS */
+
+button.primary {
+    background: #0f9f76;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+button.primary:hover {
+    background: #087f60;
+}
+
+.secondary {
+    background: #f1f4f8;
+    color: #26344b;
+    border: 1px solid #e5eaf1;
+    border-radius: 10px;
+}
+
+td button {
+    background: #eaf5f1;
+    color: #087f60;
+    font-weight: 650;
+}
+
+/* 12. FORM CONTROLS */
+
+input,
+select,
+textarea {
+    border-radius: 10px;
+    border: 1px solid #dce2eb;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #10a37f;
+    box-shadow: 0 0 0 3px rgba(16, 163, 127, .12);
+}
+
+/* 13. RESPONSIVE DESIGN */
+
+@media (max-width: 1200px) {
+    #dashboardOverview > .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 850px) {
+    main {
+        padding: 0 16px;
+        margin: 16px auto;
+    }
+
+    .dashboardContent {
+        padding: 0;
+    }
+
+    .sidebar {
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    #dashboardOverview > .stats {
+        grid-template-columns: 1fr;
+    }
+
+    #dashboardHome .welcome {
+        padding: 18px;
+        flex-wrap: wrap;
+    }
+
+    .dashboardContent .panel {
+        padding: 18px;
+    }
+
+    .monthlyChartContainer {
+        height: 240px;
+    }
+
+    header {
+        padding: 16px;
+    }
+}
+
+/* InvoTracker Suite top bar and navigation icons */
+
+.sidebarLink {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navIcon {
+    display: inline-flex;
+    width: 22px;
+    justify-content: center;
+    font-size: 19px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.suiteTopbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid #e8eaf1;
+    border-radius: 15px;
+    padding: 16px 22px;
+}
+
+.suiteTopbarLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.suiteWorkspaceLabel {
+    color: #8490a3;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.suiteTopbarLeft strong {
+    color: #111b33;
+    font-size: 17px;
+}
+
+.suiteTopbarRight {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.suitePlan {
+    background: #ecfdf5;
+    color: #047857;
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.suiteAvatar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #0b1630;
+    color: white;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .suiteTopbar {
+        padding: 14px;
+    }
+
+    .suitePlan {
+        display: none;
+    }
+}
+/* ===== INVOTRACKER SUITE DASHBOARD GRID ===== */
+
+.suiteDashboardGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(300px, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.suiteMainColumn,
+.suiteSideColumn {
+    min-width: 0;
+}
+
+.suiteDashboardGrid .panel {
+    margin-bottom: 20px;
+}
+
+.suiteDashboardGrid #paymentPriorityPanel {
+    position: sticky;
+    top: 20px;
+}
+
+.suiteDashboardGrid #paymentPriorityPanel .tableWrap {
+    overflow-x: auto;
+}
+
+.suiteDashboardGrid #paymentPriorityPanel table {
+    min-width: 650px;
+}
+
+@media (max-width: 1200px) {
+    .suiteDashboardGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .suiteDashboardGrid #paymentPriorityPanel {
+        position: static;
+    }
+}
+/* ===== FIX LARGE EMPTY SPACE BETWEEN PAGES ===== */
+
+/* Keep the top bar above the active page */
+.dashboardContent {
+    display: block !important;
+    min-height: 0 !important;
+}
+
+.suiteTopbar {
+    margin-bottom: 20px;
+}
+
+/* Hide inactive pages completely */
+[data-view][hidden] {
+    display: none !important;
+}
+
+/* Prevent the dashboard grid from creating empty space */
+.suiteDashboardGrid {
+    align-items: start;
+}
+
+.suiteMainColumn,
+.suiteSideColumn {

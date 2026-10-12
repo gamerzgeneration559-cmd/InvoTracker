@@ -1,142 +1,408 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InvoTracker</title><link rel="stylesheet" href="/styles.css">
-</head>
+  <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>InvoTracker</title><link href="/styles.css" rel="stylesheet"/>
+  <link href="/dashboard-v4.css" rel="stylesheet"/></head>
 <body>
 <header><div class="brand">Invo<span>Tracker</span></div><p>Multipurpose invoice tracking</p></header>
 <main>
-  <section id="auth" class="panel">
-    <div class="tabs"><button id="showLogin" class="active">Login</button><button id="showRegister">Create account</button></div>
+  <section class="panel" id="auth">
+    <div class="tabs"><button class="active" id="showLogin">Login</button><button id="showRegister">Create account</button></div>
     <form id="loginForm">
-      <h1>Welcome back</h1><label>Email<input name="email" type="email" required autocomplete="username"></label>
-      <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+      <h1>Welcome back</h1><label>Email<input autocomplete="username" name="email" required="" type="email"/></label>
+      <label>Password<input autocomplete="current-password" name="password" required="" type="password"/></label>
       <button class="primary" type="submit">Login</button>
     </form>
-    <form id="registerForm" hidden>
+    <form hidden="" id="registerForm">
       <h1>Create your business account</h1>
-      <label>Business name<input name="businessName" maxlength="120" required></label>
-      <label>Business type<select name="industry" required>
+      <label>Business name<input maxlength="120" name="businessName" required=""/></label>
+      <label>Business type<select name="industry" required="">
         <option value="small-business">Small business</option><option value="grocery">Grocery store</option>
         <option value="freelancer">Freelancer</option><option value="manufacturing">Manufacturing</option>
         <option value="transport">Transport</option><option value="healthcare">Healthcare</option><option value="other">Other</option>
       </select></label>
-      <label>Email<input name="email" type="email" required autocomplete="email"></label>
-      <label>Password (minimum 8 characters)<input name="password" type="password" minlength="8" maxlength="72" required autocomplete="new-password"></label>
+      <label>Email<input autocomplete="email" name="email" required="" type="email"/></label>
+      <label>Password (minimum 8 characters)<input autocomplete="new-password" maxlength="72" minlength="8" name="password" required="" type="password"/></label>
       <button class="primary" type="submit">Create account</button>
     </form>
-    <p id="authMessage" class="message" role="status"></p>
+    <p class="message" id="authMessage" role="status"></p>
   </section>
-  <section id="app" hidden>
-
+  <section hidden="" id="app">
     <div class="dashboardLayout">
       <aside class="sidebar">
         <div class="sidebarBrand">Invo<span>Tracker</span></div>
         <p class="sidebarLabel">WORKSPACE</p>
-        <nav class="sidebarNav" aria-label="Dashboard navigation">
-          <a href="#dashboardHome" class="sidebarLink active">Dashboard</a>
-          <a href="#invoiceForm" class="sidebarLink">Create Invoice</a>
-          <a href="#statusChart" class="sidebarLink">Analytics</a>
-          <a href="#invoiceRows" class="sidebarLink">Invoices</a>
+        <nav aria-label="Dashboard navigation" class="sidebarNav">
+          <a class="sidebarLink active" data-page="dashboard" href="#dashboardHome">
+            <span class="navIcon">▦</span>
+            <span>Dashboard</span>
+          </a>
+          <a class="sidebarLink" data-page="create" href="#invoiceForm">
+            <span class="navIcon">⊕</span>
+            <span>Create Invoice</span>
+          </a>
+          <a class="sidebarLink" data-page="analytics" href="#statusChart">
+            <span class="navIcon">▥</span>
+            <span>Analytics</span>
+          </a>
+          <a class="sidebarLink" data-page="invoices" href="#invoiceRows">
+            <span class="navIcon">▤</span>
+            <span>Sales &amp; Invoices</span>
+          </a>
+          <a class="sidebarLink" data-page="products" href="#productsPage">
+            <span class="navIcon">▣</span>
+            <span>Products &amp; Inventory</span>
+          </a>
+          <a class="sidebarLink" data-page="scanner" href="#webcamOcrSection">
+            <span class="navIcon">▧</span>
+            <span>Invoice Scanner</span>
+          </a>
         </nav>
         <div class="sidebarFooter">Invoice Management</div>
       </aside>
       <div class="dashboardContent">
-
-
-        <div id="dashboardHome">
-          <div class="welcome">
-            <div>
-              <p class="eyebrow">BUSINESS OVERVIEW</p>
-              <h1 id="businessTitle">Dashboard</h1>
-              <p id="businessMeta"></p>
-            </div>
-            <button id="logoutButton" class="secondary">Log out</button>
+        <div class="suiteTopbar">
+          <div class="suiteTopbarLeft">
+            <span class="suiteWorkspaceLabel">BUSINESS WORKSPACE</span>
+            <strong>InvoTracker Suite</strong>
+          </div>
+          <div class="suiteTopbarRight">
+            <span class="suitePlan">Business Edition</span>
+            <span aria-label="Business account" class="suiteAvatar">B</span>
           </div>
         </div>
-
-    <div class="stats">
-      <article><span>Invoices</span><strong id="count">0</strong></article>
-      <article><span>Total invoiced</span><strong id="invoiced">₹0.00</strong></article>
-      <article><span>Collected</span><strong id="paid">₹0.00</strong></article>
-      <article><span>Outstanding</span><strong id="outstanding">₹0.00</strong></article>
-      <article><span>Overdue</span><strong id="overdue">0</strong></article>
-    </div>
-    <section class="panel">
-      <h2>Create invoice</h2>
-
-      <section class="panel">
-        <h2>Invoice Analytics</h2>
-        <div class="stats">
-          <article>
-            <span>Invoice Status</span>
-            <canvas id="statusChart"></canvas>
-          </article>
-          <article>
-            <span>Payments & Outstanding</span>
-            <canvas id="paymentsChart"></canvas>
-          </article>
-          <article>
-            <span>Invoice Risk Levels</span>
-            <canvas id="riskChart"></canvas>
-          </article>
+        <div data-view="dashboard" id="dashboardHome"> <div class="welcome">
+          <div>
+            <p class="eyebrow">OWNER DASHBOARD</p> <h1 id="businessTitle">Dashboard</h1>
+            <p id="businessMeta"></p>
+          </div>
+          <button class="secondary" id="logoutButton">Log out</button>
         </div>
-      </section>
+        </div>
+        <div data-view="dashboard" id="dashboardOverview">
+          <div class="stats suiteKpis">
+            <article><span>Invoices</span><strong id="count">0</strong></article>
+            <article><span>Total invoiced</span><strong id="invoiced">₹0.00</strong></article>
+            <article><span>Collected</span><strong id="paid">₹0.00</strong></article>
+            <article><span>Outstanding</span><strong id="outstanding">₹0.00</strong></article>
+            <article><span>Overdue</span><strong id="overdue">0</strong></article>
+          </div><div class="suiteDashboardGrid">
+          <div class="suiteMainColumn"><section class="panel" id="monthlyRevenuePanel">
+            <h2>Monthly Revenue Performance</h2>
+            <p>Compare invoiced amounts and collections over the last six months.</p>
+            <div class="monthlyChartContainer">
+              <canvas id="monthlyRevenueChart"></canvas>
+            </div>
+          </section>
 
-      <form id="invoiceForm" class="invoiceForm">
-        <label>Invoice number<input name="invoiceNumber" maxlength="60" required></label>
-        <label>Customer name<input name="customerName" maxlength="160" required></label>
-        <label>Customer email (optional)
-          <input name="customerEmail" type="email" maxlength="254" placeholder="customer@example.com">
-        </label>
+            <section class="panel">
+              <h2>Smart Business Dashboard</h2>
+              <p>Business activity based on your existing invoice records.</p>
+              <div class="stats">
+                <article>
+                  <span>Today's Sales</span>
+                  <strong id="todaySales">₹0.00</strong>
+                </article>
+                <article>
+                  <span>Customer Dues</span>
+                  <strong id="customerDues">₹0.00</strong>
+                </article>
+                <article>
+                  <span>Overdue Invoices</span>
+                  <strong id="overdueInvoices">0</strong>
+                </article>
+                <article>
+                  <span>Estimated Profit</span>
+                  <strong id="estimatedProfit">Not available</strong>
+                </article>
+              </div>
+              <p class="message">Profit requires product-cost records. Today's sales will be calculated from invoices dated today.</p>
+              <!-- SMART PRO PAYMENT ALERTS -->
 
-        <label>Customer GSTIN (optional)
-          <input name="customerGstin" maxlength="20" placeholder="Enter customer GSTIN">
-        </label>
+            </section>
+            <!-- SMART PRO REVENUE & COLLECTIONS -->
+            <section class="panel" id="revenuePerformancePanel">
+              <h2>Revenue &amp; Collections</h2>
+              <p>Financial performance based on your invoice records.</p>
+              <!-- SMART PRO COLLECTION HEALTH -->
+              <div class="collectionHealth">
+                <div class="collectionHealthHeader">
+                  <strong>Collection Performance</strong>
+                  <span class="healthBadge" id="collectionHealthBadge">
+      Waiting for data
+    </span>
+                </div>
+                <p id="collectionHealthMessage">
+                  Analyzing your invoice collection performance...
+                </p>
+              </div>
+              <div class="stats">
+                <article>
+                  <span>Total Invoiced</span>
+                  <strong id="revenueTotal">₹0.00</strong>
+                </article>
+                <article>
+                  <span>Payments Collected</span>
+                  <strong id="revenueCollected">₹0.00</strong>
+                </article>
+                <article>
+                  <span>Collection Rate</span>
+                  <strong id="collectionRate">0%</strong>
+                </article>
+              </div>
+              <div class="collectionProgress">
+                <div id="collectionProgressBar"></div>
+              </div>
+              <p class="collectionSummary" id="collectionSummary">
+                Waiting for invoice data...
+              </p>
+            </section>
+            <!-- SMART PRO MONTHLY REVENUE CHART -->
 
-        <label>GST Rate
-          <select name="gstRate" required>
-            <option value="18" selected>18% (Standard)</option>
-            <option value="0">0%</option>
-            <option value="5">5%</option>
-            <option value="12">12%</option>
-            <option value="28">28%</option>
-          </select>
-        </label>
-
-        <label>Taxable amount before GST (₹)<input name="totalAmount" type="number" min="0.01" step="0.01" required></label>        <label>Issue date<input name="issueDate" type="date" required></label>
-        <label>Due date<input name="dueDate" type="date" required></label>
-        <button class="primary" type="submit">Save invoice</button>
-      </form>
-      <p id="invoiceMessage" class="message" role="status"></p>
-    </section>
-    <section class="panel">
-      <div class="tableHeading"><h2>Invoices</h2><input id="search" placeholder="Search invoice or customer…" aria-label="Search invoices"></div>
-      <div class="tableWrap"><table><thead>
-      <tr>
-        <th>Invoice</th>
-        <th>Customer</th>
-        <th>Total</th>
-        <th>Paid</th>
-        <th>Balance</th>
-        <th>Due date</th>
-        <th>Risk Score</th>
-        <th>Risk Level</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-      </thead><tbody id="invoiceRows"></tbody></table></div>
-
-    </section>
+            <!-- SMART PRO PAYMENT PRIORITY LIST -->
+          </div><!-- /.suiteMainColumn -->
+          <div class="suiteSideColumn"><section class="panel" id="smartAlertsPanel">
+            <h2>Smart Payment Alerts</h2>
+            <p>Important payment updates from your invoices.</p>
+            <div class="stats">
+              <article>
+                <span>Overdue Payments</span>
+                <strong id="alertOverdue">0</strong>
+              </article>
+              <article>
+                <span>Due Within 7 Days</span>
+                <strong id="alertDueSoon">0</strong>
+              </article>
+              <article>
+                <span>Outstanding Amount</span>
+                <strong id="alertOutstanding">₹0.00</strong>
+              </article>
+            </div>
+            <p class="message" id="smartAlertMessage" role="status">
+              Waiting for invoice data...
+            </p>
+          </section><section class="panel suiteInventoryPanel" id="dashboardInventoryHealth">
+            <div class="suiteSectionHeader"><div>
+              <h2>Inventory Health</h2>
+              <p>Live overview of your product stock.</p>
+            </div></div>
+            <div class="suiteInventoryNumbers">
+              <div><span>Products</span><strong id="dashTotalProducts">—</strong></div>
+              <div><span>Low stock</span><strong id="dashLowStock">—</strong></div>
+              <div><span>Stock value</span><strong id="dashStockValue">—</strong></div>
+            </div>
+            <div class="suiteStockTrack"><div id="dashStockFill"></div></div>
+            <p class="suiteStockMessage" id="dashStockMessage" role="status">Loading inventory…</p>
+            <a class="suiteActionLink" data-go-page="products" href="#productsPage">Manage inventory →</a>
+          </section><section class="panel suiteQuickActions">
+            <h2>Quick Actions</h2>
+            <div class="suiteActionGrid">
+              <a data-go-page="create" href="#invoiceForm">＋ Create invoice</a>
+              <a data-go-page="invoices" href="#invoiceRows">▤ View invoices</a>
+              <a data-go-page="products" href="#productsPage">▣ Manage products</a>
+              <a data-go-page="analytics" href="#statusChart">▥ View analytics</a>
+            </div>
+          </section>
+            <section class="panel suitePriorityPanel" id="paymentPriorityPanel">
+              <div class="tableHeading">
+                <div>
+                  <h2>Payment Follow-up Priorities</h2>
+                  <p>Customers with outstanding invoices, ordered by urgency.</p>
+                </div>
+              </div>
+              <div class="tableWrap">
+                <table class="suitePriorityTable">
+                  <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>Invoice</th>
+                    <th>Outstanding</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                  </tr>
+                  </thead>
+                  <tbody id="paymentPriorityRows">
+                  <tr>
+                    <td colspan="5">Waiting for invoice data...</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+        </div>
+        <section class="panel" data-view="analytics" id="analyticsPage"> <h2>Invoice Analytics</h2>
+          <div class="stats">
+            <article>
+              <span>Invoice Status</span>
+              <canvas id="statusChart"></canvas>
+            </article>
+            <article>
+              <span>Payments &amp; Outstanding</span>
+              <canvas id="paymentsChart"></canvas>
+            </article>
+            <article>
+              <span>Invoice Risk Levels</span>
+              <canvas id="riskChart"></canvas>
+            </article>
+          </div>
+        </section>
+        <section class="panel" data-view="create" id="createInvoicePage">
+          <h2>Create invoice</h2>
+          <form class="invoiceForm" id="invoiceForm">
+            <label>Invoice number<input maxlength="60" name="invoiceNumber" required=""/></label>
+            <label>Customer name<input maxlength="160" name="customerName" required=""/></label>
+            <label>Customer email (optional)
+              <input maxlength="254" name="customerEmail" placeholder="customer@example.com" type="email"/>
+            </label>
+            <label>Customer GSTIN (optional)
+              <input maxlength="20" name="customerGstin" placeholder="Enter customer GSTIN"/>
+            </label>
+            <label>GST Rate
+              <select name="gstRate" required="">
+                <option selected="" value="18">18% (Standard)</option>
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="28">28%</option>
+              </select>
+            </label>
+            <label>Taxable amount before GST (₹)<input min="0.01" name="totalAmount" required="" step="0.01" type="number"/></label> <label>Issue date<input name="issueDate" required="" type="date"/></label>
+            <label>Due date<input name="dueDate" required="" type="date"/></label>
+            <button class="primary" type="submit">Save invoice</button>
+          </form>
+          <p class="message" id="invoiceMessage" role="status"></p>
+        </section>
+        <section class="panel" data-view="invoices" id="invoicesPage">
+          <div class="tableHeading"><h2>Invoices</h2><input aria-label="Search invoices" id="search" placeholder="Search invoice or customer…"/></div>
+          <div class="tableWrap"><table><thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Balance</th>
+            <th>Due date</th>
+            <th>Risk Score</th>
+            <th>Risk Level</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          </thead><tbody id="invoiceRows"></tbody></table></div>
+        </section>
+        <!-- SMART PRO PRODUCTS & INVENTORY PAGE -->
+        <section class="panel" data-view="products" hidden="" id="productsPage">
+          <div class="tableHeading">
+            <div>
+              <h2>Products &amp; Inventory</h2>
+              <p>Manage your products, prices, and available stock.</p>
+            </div>
+          </div>
+          <!-- PRODUCT SUMMARY -->
+          <div class="stats">
+            <article>
+              <span>Total Products</span>
+              <strong id="totalProducts">0</strong>
+            </article>
+            <article>
+              <span>Low Stock Products</span>
+              <strong id="lowStockProducts">0</strong>
+            </article>
+            <article>
+              <span>Inventory Value</span>
+              <strong id="inventoryValue">₹0.00</strong>
+            </article>
+          </div>
+          <!-- ADD PRODUCT FORM -->
+          <div class="panel">
+            <h3>Add New Product</h3>
+            <form id="productForm">
+              <label>
+                Product Name
+                <input id="productName" placeholder="Enter product name" required="" type="text"/>
+              </label>
+              <label>
+                SKU / Product Code
+                <input id="productSku" placeholder="e.g. PRD001" required="" type="text"/>
+              </label>
+              <label>
+                Selling Price (₹)
+                <input id="productPrice" min="0" required="" step="0.01" type="number"/>
+              </label>
+              <label>
+                Stock Quantity
+                <input id="productStock" min="0" required="" step="1" type="number"/>
+              </label>
+              <label>
+                Low Stock Alert Level
+                <input id="productLowStock" min="0" required="" step="1" type="number" value="5"/>
+              </label>
+              <button type="submit">
+                Add Product
+              </button>
+            </form>
+            <p class="message" id="productMessage" role="status"></p>
+          </div>
+          <!-- PRODUCT TABLE -->
+          <div class="panel">
+            <h3>Product Inventory</h3>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>SKU</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="productRows">
+                <tr>
+                  <td colspan="6">
+                    No products added yet.
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="panel" data-view="scanner" hidden id="webcamOcrSection">
+          <h2>Webcam Invoice Scanner</h2>
+          <p>Capture an invoice or receipt and extract its text.</p>
+          <video autoplay="" id="ocrVideo" playsinline="" style="width:100%;max-width:500px;display:none;"></video>
+          <canvas id="ocrCanvas" style="display:none;"></canvas>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+            <button id="startOcrCamera" type="button">
+              Start Camera
+            </button>
+            <button disabled="" id="captureOcrImage" type="button">
+              Capture &amp; Read Text
+            </button>
+            <button disabled="" id="stopOcrCamera" type="button">
+              Stop Camera
+            </button>
+          </div>
+          <p id="ocrStatus" role="status">
+            Camera not started.
+          </p>
+          <label for="ocrResult">Extracted text</label>
+          <textarea id="ocrResult" placeholder="Recognized invoice text will appear here..." rows="8" style="width:100%;box-sizing:border-box;"></textarea>
+        </section>
       </div>
     </div>
   </section>
 </main>
-
 <footer>InvoTracker · MVP · Keep business records accurate and backed up.</footer>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
-</body></html>
+<script src="/dashboard-v4.js"></script></body>
+</html>
+```
