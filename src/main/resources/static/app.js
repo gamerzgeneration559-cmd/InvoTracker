@@ -1,17 +1,6 @@
 const $ = (id) => document.getElementById(id);
-let csrfHeader = "X-XSRF-TOKEN";
-let csrfToken = "";
 let invoices = [];
 let businessProfile = {};
-
-async function refreshCsrf() {
-  const res = await fetch("/api/csrf", { credentials: "same-origin" });
-  if (!res.ok) throw new Error("Could not initialize secure session.");
-  const data = await res.json();
-  csrfHeader = data.headerName;
-  csrfToken = data.token;
-}
-
 async function api(url, options = {}) {
   const method = (options.method || "GET").toUpperCase();
   const headers = { ...(options.headers || {}) };
@@ -20,10 +9,6 @@ async function api(url, options = {}) {
     headers["Content-Type"] = "application/json";
   }
 
-  if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
-    await refreshCsrf();
-    headers[csrfHeader] = csrfToken;
-  }
 
   const res = await fetch(url, {
     ...options,
@@ -537,9 +522,8 @@ $("registerForm").addEventListener("submit", async e => {
   const data = Object.fromEntries(new FormData(e.currentTarget));
   try {
     await api("/api/auth/register", { method: "POST", body: JSON.stringify(data) });
-    await refreshCsrf();
     await api("/api/auth/login", { method: "POST", body: JSON.stringify({ email: data.email, password: data.password }) });
-    await refreshCsrf(); await loadApp();
+    await loadApp();
   } catch (err) { message("authMessage", err.message); }
 });
 $("loginForm").addEventListener("submit", async e => {
@@ -547,11 +531,11 @@ $("loginForm").addEventListener("submit", async e => {
   const data = Object.fromEntries(new FormData(e.currentTarget));
   try {
     await api("/api/auth/login", { method: "POST", body: JSON.stringify(data) });
-    await refreshCsrf(); await loadApp();
+     await loadApp();
   } catch (err) { message("authMessage", err.message); }
 });
 $("logoutButton").addEventListener("click", async () => {
-  try { await api("/api/auth/logout", { method: "POST" }); await refreshCsrf(); showAuth(false); }
+  try { await api("/api/auth/logout", { method: "POST" });  showAuth(false); }
   catch (e) { alert(e.message); }
 });
 // Itemized invoice editor: server recalculates all totals before saving.
