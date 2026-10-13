@@ -4,7 +4,17 @@
 <head>
   <meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>InvoTracker</title><link href="/styles.css" rel="stylesheet"/>
-  <link href="/dashboard-v4.css" rel="stylesheet"/></head>
+  <link href="/dashboard-v4.css" rel="stylesheet"/><link href="/smart-analytics.css" rel="stylesheet"/><link href="/smartstock.css" rel="stylesheet"/><link href="/premium-ui.css" rel="stylesheet"/><style>
+.innovation-card{padding:18px;margin:12px 0 22px;border:1px solid #c8d5ed;border-radius:14px;background:linear-gradient(120deg,#eef4ff,#fff)}
+.innovation-card textarea,#ocrResult{width:100%;box-sizing:border-box;padding:12px;border:1px solid #b8c8df;border-radius:9px}
+.innovation-actions{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.innovation-hint{font-size:13px;color:#5b6578}
+.investigation-case{padding:16px;margin:12px 0;border:1px solid #c8d5ed;border-radius:12px;background:#fff;color:#1c2940}
+.investigation-case select,.investigation-case textarea{width:100%;max-width:480px;padding:8px;margin:6px 0}
+.investigation-case button{margin:6px 0}
+.investigation-case ul{margin:8px 0 12px}
+</style>
+</head>
 <body>
 <header><div class="brand">Invo<span>Tracker</span></div><p>Multipurpose invoice tracking</p></header>
 <main>
@@ -55,6 +65,9 @@
             <span class="navIcon">▣</span>
             <span>Products &amp; Inventory</span>
           </a>
+          <a class="sidebarLink" data-page="contacts" href="#contactsPage"><span class="navIcon">♧</span><span data-i18n="contacts">Customers & Suppliers</span></a>
+          <a class="sidebarLink" data-page="reports" href="#reportsPage"><span class="navIcon">⇩</span><span data-i18n="reports">Reports & GST Export</span></a>
+          <a class="sidebarLink" data-page="investigator" href="#fraudInvestigatorPage"><span class="navIcon">⚑</span><span>Fraud Investigator</span></a>
           <a class="sidebarLink" data-page="scanner" href="#webcamOcrSection">
             <span class="navIcon">▧</span>
             <span>Invoice Scanner</span>
@@ -69,7 +82,8 @@
             <strong>InvoTracker Suite</strong>
           </div>
           <div class="suiteTopbarRight">
-            <span class="suitePlan">Business Edition</span>
+            <label style="font-size:12px">Language <select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="mr">मराठी</option></select></label>
+          <span class="suitePlan">Business Edition</span>
             <span aria-label="Business account" class="suiteAvatar">B</span>
           </div>
         </div>
@@ -80,6 +94,16 @@
           </div>
           <button class="secondary" id="logoutButton">Log out</button>
         </div>
+          <div class="studioHero" aria-label="Intelligent invoice tools">
+            <span class="studioEyebrow">✦ &nbsp; INTELLIGENT INVOICING</span>
+            <h2>Less paperwork. More business.</h2>
+            <p>Turn a sentence or scanned receipt into an invoice draft, then review risk signals before you send it.</p>
+            <div class="studioHeroActions">
+              <a data-go-page="create" href="#invoiceForm">✦ &nbsp; Smart Invoice Copilot →</a>
+              <a data-go-page="scanner" href="#webcamOcrSection">▧ &nbsp; Scan a bill</a>
+              <a data-go-page="investigator" href="#fraudInvestigatorPage">⚑ &nbsp; Investigate risks</a>
+            </div>
+          </div>
         </div>
         <div data-view="dashboard" id="dashboardOverview">
           <div class="stats suiteKpis">
@@ -123,7 +147,7 @@
 
             </section>
             <!-- SMART PRO REVENUE & COLLECTIONS -->
-            <section class="panel" id="revenuePerformancePanel">
+            <section class="panel" id="revenuePerformancePanel" hidden>
               <h2>Revenue &amp; Collections</h2>
               <p>Financial performance based on your invoice records.</p>
               <!-- SMART PRO COLLECTION HEALTH -->
@@ -205,7 +229,7 @@
               <a data-go-page="analytics" href="#statusChart">▥ View analytics</a>
             </div>
           </section>
-            <section class="panel suitePriorityPanel" id="paymentPriorityPanel">
+            <section class="panel suitePriorityPanel" id="paymentPriorityPanel" hidden>
               <div class="tableHeading">
                 <div>
                   <h2>Payment Follow-up Priorities</h2>
@@ -234,7 +258,23 @@
           </div>
         </div>
         </div>
-        <section class="panel" data-view="analytics" id="analyticsPage"> <h2>Invoice Analytics</h2>
+        <section class="panel" data-view="analytics" id="analyticsPage">
+          <section id="smartAnalytics" class="sa-dashboard">
+            <header class="sa-header"><div><h2>SmartStock <em>Analytics</em></h2><p>Business insights from real invoices and inventory</p></div><div class="sa-filters"><label>Month <input type="month" id="saMonth"></label><select id="saPeriod" aria-label="Sales chart interval"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select><button id="saRefresh" type="button">Refresh</button></div></header>
+            <p id="saMessage" role="status"></p>
+            <div class="sa-kpis"><article><span>Total sales (before GST)</span><strong id="saSales">—</strong></article><article><span>Catalog units sold</span><strong id="saUnits">—</strong></article><article><span>Low-stock products</span><strong id="saLow">—</strong></article><article><span>Estimated gross profit</span><strong id="saProfit">—</strong><small id="saProfitNote">Based on recorded supplier costs</small></article></div>
+            <div class="sa-card sa-chart"><div class="sa-card-head"><div><h3>Sales Trend</h3><small>Daily, weekly or monthly totals</small></div><select id="saMetric" aria-label="Chart metric"><option value="revenue">Revenue</option><option value="unitsSold">Units sold</option><option value="estimatedProfit">Estimated profit</option></select></div><div class="sa-chart-canvas"><canvas id="saTrendChart"></canvas></div></div>
+            <div class="sa-grid">
+              <section class="sa-card"><div class="sa-card-head"><h3>↗ Most Selling Products</h3><small>Top 5 by units sold</small></div><div id="saMost"></div></section>
+              <section class="sa-card"><div class="sa-card-head"><h3>↘ Least Selling Products</h3><small>Lowest-selling catalog products</small></div><div id="saLeast"></div></section>
+              <section class="sa-card"><div class="sa-card-head"><h3>⚠ Low Stock Alerts</h3><small>At or below reorder level</small></div><div id="saLowList"></div></section>
+              <section class="sa-card"><div class="sa-card-head"><h3>🛒 Restock Recommendations</h3><small>37-day demand target less available stock</small></div><div id="saRestock"></div></section>
+              <section class="sa-card"><div class="sa-card-head"><h3>↗ Profit Analysis</h3><small>Estimated using latest recorded supplier cost</small></div><div id="saProfitList"></div></section>
+              <section class="sa-card"><div class="sa-card-head"><h3>◷ Dead Stock Detection</h3><label>Unsold for <select id="saDeadDays"><option value="30">30 days</option><option value="60">60 days</option><option value="90">90 days</option></select></label></div><div id="saDead"></div></section>
+            </div>
+            <p class="sa-footnote">Only non-cancelled customer invoices count toward sales. Products must be linked to catalog entries. Cost-based profit is an estimate, not an accounting report. New products with no receipt history are excluded from age-based dead stock.</p>
+          </section>
+          <h2>Invoice Analytics</h2>
           <div class="stats">
             <article>
               <span>Invoice Status</span>
@@ -251,8 +291,19 @@
           </div>
         </section>
         <section class="panel" data-view="create" id="createInvoicePage">
-          <h2>Create invoice</h2>
+          <h2 data-i18n="create">Create invoice</h2>
+          <p>Automatic GST calculation, multiple products and invoice health checks.</p>
+          <div class="innovation-card" id="copilotPanel">
+            <h3>✨ Smart Invoice Copilot</h3>
+            <p>Describe an invoice in English. Example: <em>Create a bill for ABC Traders, 5 keyboards at ₹800 each and 2 mice at ₹350 each with 18% GST.</em></p>
+            <textarea id="copilotPrompt" rows="3" placeholder="Create a bill for ABC Traders, 5 keyboards at ₹800 each with 18% GST"></textarea>
+            <div class="innovation-actions"><button type="button" id="copilotParse" class="primary">Prepare editable draft</button><button type="button" id="copilotSpeak" class="secondary">🎙 Dictate</button></div>
+            <p id="copilotFeedback" role="status"></p>
+            <p class="innovation-hint">Rule-based extraction. Check all amounts, tax rates, names and dates before saving. Nothing is saved automatically.</p>
+          </div>
           <form class="invoiceForm" id="invoiceForm">
+            <label>Invoice template<select name="templateType" id="invoiceTemplate"><option value="STANDARD">Standard</option><option value="GROCERY">Grocery / Retail</option><option value="FREELANCER">Freelancer / Services</option><option value="MANUFACTURING">Manufacturing</option><option value="TRANSPORT">Transport</option><option value="HEALTHCARE">Clinic / Healthcare</option></select></label>
+            <label>Saved customer<select id="savedCustomer"><option value="">Enter manually</option></select></label>
             <label>Invoice number<input maxlength="60" name="invoiceNumber" required=""/></label>
             <label>Customer name<input maxlength="160" name="customerName" required=""/></label>
             <label>Customer email (optional)
@@ -270,14 +321,33 @@
                 <option value="28">28%</option>
               </select>
             </label>
-            <label>Taxable amount before GST (₹)<input min="0.01" name="totalAmount" required="" step="0.01" type="number"/></label> <label>Issue date<input name="issueDate" required="" type="date"/></label>
+            <div class="invoice-items-editor" style="grid-column:1/-1;width:100%">
+              <h3>Products / Services</h3>
+              <div class="pos-entry" style="padding:14px;border:1px solid #475569;border-radius:12px;margin:12px 0">
+                <strong>Point of Sale · Scan products to add to this invoice</strong>
+                <p class="innovation-hint">Enter a SKU/barcode or use the rear camera. Every scan adds one unit; adjust quantity in the invoice lines. Stock is deducted only when the invoice saves successfully.</p>
+                <label>SKU or barcode <input type="text" id="posBarcode" autocomplete="off" placeholder="Scan barcode here, then press Enter" /></label>
+                <button type="button" id="posAddBarcode">Add scanned product</button>
+                <button type="button" id="posStartCamera">Start rear camera</button>
+                <button type="button" id="posScanCamera">Scan camera frame</button>
+                <button type="button" id="posStopCamera">Stop camera</button>
+                <video id="posCamera" playsinline muted style="display:none;width:100%;max-width:420px;border-radius:12px;margin-top:10px"></video>
+                <p id="posFeedback" role="status"></p>
+              </div>
+              <div id="invoiceItemRows"></div>
+              <button type="button" id="addInvoiceItem" class="secondary">+ Add item</button>
+              <button type="button" id="voiceInvoice" class="secondary">🎙 Speak item (English/Hindi/Marathi, browser support required)</button>
+              <small id="voiceStatus" role="status"></small>
+              <p id="invoiceItemTotals" aria-live="polite">Subtotal: ₹0.00 | GST: ₹0.00 | Total: ₹0.00</p>
+              <label>Invoice discount (₹)<input type="number" name="discount" min="0" step="0.01" value="0" /></label>
+            </div> <label>Issue date<input name="issueDate" required="" type="date"/></label>
             <label>Due date<input name="dueDate" required="" type="date"/></label>
-            <button class="primary" type="submit">Save invoice</button>
+            <div id="invoicePreflight" role="status" style="grid-column:1/-1;font-size:13px;color:#b45309"></div><button class="primary" type="submit" data-i18n="save">Save invoice</button>
           </form>
           <p class="message" id="invoiceMessage" role="status"></p>
         </section>
         <section class="panel" data-view="invoices" id="invoicesPage">
-          <div class="tableHeading"><h2>Invoices</h2><input aria-label="Search invoices" id="search" placeholder="Search invoice or customer…"/></div>
+          <div class="tableHeading"><h2 data-i18n="invoices">Invoices</h2><input aria-label="Search invoices" id="search" placeholder="Search invoice or customer…"/></div>
           <div class="tableWrap"><table><thead>
           <tr>
             <th>Invoice</th>
@@ -286,12 +356,33 @@
             <th>Paid</th>
             <th>Balance</th>
             <th>Due date</th>
-            <th>Risk Score</th>
-            <th>Risk Level</th>
+
             <th>Status</th>
             <th>Actions</th>
           </tr>
           </thead><tbody id="invoiceRows"></tbody></table></div>
+        </section>
+        <section class="panel" data-view="contacts" hidden id="contactsPage">
+          <h2 data-i18n="contacts">Customers & Suppliers</h2>
+          <p>Records are private to your business. Payment identifiers are stored only as keyed fingerprints when configured.</p>
+          <form id="contactForm" class="invoiceForm">
+            <label>Type<select name="type"><option value="CUSTOMER">Customer</option><option value="SUPPLIER">Supplier</option></select></label>
+            <label>Name<input name="name" maxlength="160" required></label>
+            <label>Email<input name="email" type="email" maxlength="254"></label>
+            <label>Phone<input name="phone" maxlength="25"></label>
+            <label>GSTIN<input name="gstin" maxlength="20"></label>
+            <label>Address<input name="address" maxlength="500"></label>
+            <label>Payment identifier (optional)<input name="paymentIdentifier" maxlength="100" autocomplete="off" placeholder="UPI ID / bank identifier (requires BANK_FINGERPRINT_KEY)"></label>
+            <button type="submit" class="primary">Save contact</button>
+          </form>
+          <p class="message" id="contactMessage" role="status"></p>
+          <div class="tableWrap"><table><thead><tr><th>Type</th><th>Name</th><th>Email</th><th>Phone</th><th>GSTIN</th><th>Payment change</th><th>Actions</th></tr></thead><tbody id="contactRows"></tbody></table></div>
+        </section>
+        <section class="panel" data-view="reports" hidden id="reportsPage">
+          <h2 data-i18n="reports">Reports & GST Export</h2>
+          <p>Export a CSV for accounting review. This is NOT a government GST return filing or submission.</p>
+          <button id="downloadGstCsv" class="primary">Download GST-ready CSV</button>
+          <p>Review tax amounts and GSTINs with your accountant before using the export.</p>
         </section>
         <!-- SMART PRO PRODUCTS & INVENTORY PAGE -->
         <section class="panel" data-view="products" hidden="" id="productsPage">
@@ -316,6 +407,13 @@
               <strong id="inventoryValue">₹0.00</strong>
             </article>
           </div>
+          <section class="smartstock-box">
+            <h3>Monthly best-selling products &amp; reorder suggestions</h3>
+            <label>Month <input type="month" id="smartMonth"></label>
+            <button type="button" id="smartStatsRefresh">Refresh statistics</button>
+            <div class="tableWrap"><table><thead><tr><th>Product</th><th>Units sold</th><th>Revenue</th><th>Stock</th><th>Suggested reorder</th><th>Demand category</th></tr></thead><tbody id="smartStatsRows"></tbody></table></div>
+            <p class="innovation-hint">Suggestions use monthly demand and a 37-day stock target; adjust for supplier lead times. Only catalog-linked invoice items count.</p>
+          </section>
           <!-- ADD PRODUCT FORM -->
           <div class="panel">
             <h3>Add New Product</h3>
@@ -372,9 +470,19 @@
             </div>
           </div>
         </section>
+        <section class="panel" data-view="investigator" hidden id="fraudInvestigatorPage">
+          <h2>⚑ Invoice Fraud Investigator</h2>
+          <p>Review explainable risk signals and record investigation decisions. Warnings are not proof of fraud.</p>
+          <button type="button" id="refreshInvestigations">Refresh investigations</button>
+          <p id="investigatorStatus" role="status"></p>
+          <div id="investigatorCases" class="investigation-list"></div>
+        </section>
         <section class="panel" data-view="scanner" hidden id="webcamOcrSection">
-          <h2>Webcam Invoice Scanner</h2>
-          <p>Capture an invoice or receipt and extract its text.</p>
+          <h2>SmartScan — Mobile Invoice &amp; Inventory Scanner</h2>
+          <p>Rear camera preferred on mobile. Extract supplier invoices, review products, and confirm received stock. Customer sales still use the Create Invoice page.</p>
+          <label>Upload bill image (PNG, JPEG, WebP; up to 8 MB) <input id="ocrUpload" type="file" accept="image/png,image/jpeg,image/webp" capture="environment"></label>
+          <div class="innovation-actions"><button id="readOcrUpload" type="button">Read uploaded image</button><button id="ocrToDraft" type="button" class="primary">Convert text to invoice draft</button></div>
+          <p class="innovation-hint">OCR may misread amounts or taxes. Verify against the original bill. Images are processed in your browser by the OCR library.</p>
           <video autoplay="" id="ocrVideo" playsinline="" style="width:100%;max-width:500px;display:none;"></video>
           <canvas id="ocrCanvas" style="display:none;"></canvas>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
@@ -388,11 +496,28 @@
               Stop Camera
             </button>
           </div>
+          <label>Camera zoom <input id="smartZoom" type="range" min="1" max="5" step="0.1" value="1" disabled style="width:min(100%,300px)"></label><small id="zoomNote">Zoom is enabled when supported by your camera.</small>
+          <button type="button" id="scanProductBarcode">Scan barcode using camera (supported browsers)</button>
+          <p id="barcodeFeedback" role="status"></p>
           <p id="ocrStatus" role="status">
             Camera not started.
           </p>
           <label for="ocrResult">Extracted text</label>
           <textarea id="ocrResult" placeholder="Recognized invoice text will appear here..." rows="8" style="width:100%;box-sizing:border-box;"></textarea>
+          <section id="smartReceipt" class="smartstock-box">
+            <h3>Recognize supplier invoice &amp; prepare inventory</h3>
+            <p>OCR is imperfect. Review invoice number, supplier, prices and every product. Nothing is posted until you confirm goods received.</p>
+            <button id="smartParse" type="button">Recognize invoice and products</button>
+            <div class="smartstock-fields">
+              <label>Supplier <input id="smartSupplier" placeholder="Supplier name"></label>
+              <label>Supplier invoice number <input id="smartInvoiceNo" placeholder="INV-001"></label>
+            </div>
+            <div id="smartDetected" role="status"></div>
+            <div id="smartLines"></div>
+            <button id="smartAddLine" type="button">+ Add product line</button>
+            <button id="smartReceive" type="button" class="primary">Confirm goods received &amp; update inventory</button>
+            <p id="smartReceiptMessage" role="status"></p>
+          </section>
         </section>
       </div>
     </div>
@@ -403,6 +528,6 @@
 <script src="/app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
-<script src="/dashboard-v4.js"></script></body>
+<script src="/smart-analytics.js"></script><script src="/dashboard-v4.js"></script><script src="/smartstock.js"></script></body>
 </html>
 ```
