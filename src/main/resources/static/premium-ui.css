@@ -1,0 +1,81 @@
+/* InvoTracker Studio — visual layer only. Keeps existing JS IDs, forms and API behavior. */
+:root{--studio-ink:#13243c;--studio-muted:#687a91;--studio-border:#e4eaf3;--studio-bg:#f4f7fc;--studio-accent:#4f46e5;--studio-accent-2:#06b6d4;--studio-glow:rgba(79,70,229,.16);--studio-shadow:0 10px 32px rgba(22,34,62,.055);color-scheme:light}
+html{scroll-behavior:smooth}body{background:var(--studio-bg);color:var(--studio-ink);font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+button,a,input,select,textarea{transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(79,70,229,.33);outline-offset:2px}
+[hidden]{display:none!important}
+body>header{background:#fff;border-bottom:1px solid #e8edf5;box-shadow:none;padding:17px max(24px,calc((100% - 1540px)/2));color:var(--studio-ink)}
+body>header .brand{font-weight:850;letter-spacing:-1.2px;color:#101c36}body>header .brand span{color:var(--studio-accent)}body>header p{font-weight:500;color:#8190a4}
+main{max-width:1600px;padding:0 22px;margin:22px auto}
+.dashboardLayout{gap:0!important;align-items:stretch!important;border-radius:24px;box-shadow:0 18px 60px rgba(21,31,55,.08);background:#fff;overflow:clip}
+.sidebar{background:linear-gradient(172deg,#111b38 0%,#111b33 65%,#1b2251 100%)!important;color:#e7eaf7!important;border:0!important;box-shadow:none!important;padding:30px 15px!important}
+.sidebarBrand{color:white;font-size:24px;letter-spacing:-1.1px;font-weight:850;margin:0 12px 40px}.sidebarBrand span{color:#8b9cff}
+.sidebarLabel{font-size:10px!important;letter-spacing:2px!important;color:#8999b9!important;padding:0 12px;margin-bottom:14px!important;font-weight:800!important}
+.sidebarNav{display:flex;flex-direction:column;gap:5px!important}
+.sidebarLink{position:relative;display:flex;align-items:center;gap:13px;padding:13px 14px!important;color:#b9c5df!important;font-weight:650;font-size:13px!important;text-decoration:none;border:1px solid transparent;border-radius:12px!important;box-shadow:none!important}
+.sidebarLink .navIcon{font-size:18px;line-height:1;width:22px;color:#a3b3d6}
+.sidebarLink:hover{background:rgba(255,255,255,.09)!important;color:white!important;transform:translateX(2px)}
+.sidebarLink.active{background:linear-gradient(110deg,#4f46e5,#655de8)!important;border-color:rgba(255,255,255,.14);color:#fff!important;box-shadow:0 8px 20px rgba(35,26,128,.27)!important}
+.sidebarLink.active .navIcon{color:white}.sidebarFooter{font-size:11px;color:#8392b4!important;margin-top:36px;padding:16px 12px;border-top:1px solid rgba(255,255,255,.1)}
+.dashboardContent{background:linear-gradient(180deg,#f7f9fd 0%,#f2f5fb 100%)!important;padding:25px 29px!important;min-width:0}
+.suiteTopbar{border:1px solid var(--studio-border);border-radius:16px;padding:15px 21px;background:#fff;box-shadow:0 3px 15px rgba(22,34,62,.03);margin-bottom:23px}
+.suiteWorkspaceLabel{font-size:10px;letter-spacing:1.8px;color:#8a96a9}.suiteTopbarLeft strong{font-size:16px;letter-spacing:-.3px;color:#1a2841}
+.suitePlan{background:#eafbf4;color:#087d5b;border:1px solid #d2f2e2;padding:8px 12px}
+.suiteAvatar{background:linear-gradient(135deg,#6155e9,#13b6ce);box-shadow:0 5px 13px rgba(79,70,229,.22)}
+.suiteTopbarRight select{min-height:36px;padding:7px 9px;font-size:12px}.suiteTopbarRight label{margin:0!important;color:#64748b}
+#dashboardHome .welcome{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;margin:0!important}
+#dashboardHome .welcome h1{font-size:clamp(25px,3vw,34px);font-weight:850;letter-spacing:-1.1px;color:#16233d}
+#dashboardHome .welcome .eyebrow{color:#625be3;font-size:10px;letter-spacing:2px;font-weight:800;margin:0 0 8px}
+#dashboardHome .welcome #businessMeta{color:#7c8aa0;font-size:13px}
+.studioHero{position:relative;isolation:isolate;overflow:hidden;margin:20px 0 22px;padding:27px 30px;border-radius:20px;background:linear-gradient(112deg,#1d2352 0%,#34318b 55%,#5045c3 100%);color:white;box-shadow:0 16px 35px rgba(49,45,137,.17)}
+.studioHero:before{content:'';position:absolute;z-index:-1;right:-90px;top:-165px;width:430px;height:430px;border:1px solid rgba(255,255,255,.2);border-radius:50%;box-shadow:0 0 0 54px rgba(255,255,255,.045),0 0 0 110px rgba(255,255,255,.025)}
+.studioHero .studioEyebrow{display:inline-flex;align-items:center;gap:8px;color:#b5f4ff;font-size:11px;letter-spacing:1.8px;font-weight:800;text-transform:uppercase}
+.studioHero h2{color:white;font-size:clamp(22px,2.4vw,30px);margin:9px 0 8px;font-weight:800;letter-spacing:-.8px;max-width:720px}
+.studioHero p{color:#d5daf9;font-size:13px;max-width:620px;margin:0 0 20px;line-height:1.7}
+.studioHeroActions{display:flex;gap:10px;flex-wrap:wrap}.studioHeroActions a{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:750;font-size:12px;background:white;color:#302d87;border:1px solid rgba(255,255,255,.15)}
+.studioHeroActions a:nth-child(2),.studioHeroActions a:nth-child(3){background:rgba(255,255,255,.11);color:white;border:1px solid rgba(255,255,255,.24)}.studioHeroActions a:hover{transform:translateY(-2px);background:#eaf0ff;color:#2e2a80}
+.panel{background:#fff;border:1px solid var(--studio-border);border-radius:17px;box-shadow:var(--studio-shadow);padding:24px;margin-bottom:20px}
+.panel h2{color:#1c2a42;font-size:19px;font-weight:800;letter-spacing:-.45px}.panel h3{color:#253650;letter-spacing:-.3px}.panel>p{color:var(--studio-muted);line-height:1.6}
+#dashboardOverview>.suiteKpis{gap:13px!important}
+#dashboardOverview>.suiteKpis article{position:relative;overflow:hidden;background:#fff;border:1px solid var(--studio-border);border-radius:16px;box-shadow:var(--studio-shadow);padding:20px!important;min-height:115px}
+#dashboardOverview>.suiteKpis article:before{content:'';display:block!important;position:absolute;left:0;top:0;bottom:0;width:4px;background:#7065ee}
+#dashboardOverview>.suiteKpis article:nth-child(2):before{background:#23b5cb}
+#dashboardOverview>.suiteKpis article:nth-child(3):before{background:#15b889}
+#dashboardOverview>.suiteKpis article:nth-child(4):before{background:#f59e0b}
+#dashboardOverview>.suiteKpis article:nth-child(5):before{background:#ef6b73}
+#dashboardOverview>.suiteKpis article:hover,.panel:hover{box-shadow:0 13px 33px rgba(21,34,61,.075)}
+#dashboardOverview>.suiteKpis span{color:#7b899d;font-size:12px;font-weight:700}
+#dashboardOverview>.suiteKpis strong{color:#16243e;font-size:clamp(20px,2vw,27px);letter-spacing:-.7px}
+.primary,button.primary{background:linear-gradient(110deg,#4f46e5,#6258ec);color:#fff;border:1px solid transparent;border-radius:10px;padding:11px 17px;font-weight:750;box-shadow:0 5px 14px rgba(79,70,229,.19)}
+.primary:hover,button.primary:hover{background:linear-gradient(110deg,#4338ca,#5146db);transform:translateY(-1px)}
+.secondary,button:not(.primary):not(.sidebarLink){border-radius:10px}
+.secondary{background:#eff1ff;color:#413bb4;border:1px solid #e1e4ff;padding:10px 15px;font-weight:700}
+.secondary:hover{background:#e2e6ff}
+button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+input,select,textarea{background:#fff;color:#23324b;border:1px solid #dce3ee;border-radius:10px;padding:11px 12px;min-height:43px;max-width:100%;font-family:inherit}
+textarea{resize:vertical;line-height:1.6}input:focus,select:focus,textarea:focus{outline:none;border-color:#8279f3;box-shadow:0 0 0 3px rgba(99,102,241,.13)}
+label{font-weight:700;color:#53627a;font-size:12px;letter-spacing:.1px}
+.invoiceForm{gap:16px!important}.invoice-items-editor{background:#f8faff;border:1px solid #e7eafb;padding:20px;border-radius:14px}
+.invoice-items-editor h3{margin-top:0}.invoice-item-row{background:white;border-color:#e4e9f5!important;border-radius:12px!important;padding:13px!important;gap:11px!important}
+#invoiceItemTotals{display:inline-block;background:#e9f8f2;color:#08684e;padding:12px 15px;border:1px solid #d3eee2;border-radius:10px;font-weight:800;font-size:13px}
+#invoicePreflight:not(:empty){padding:10px 13px;background:#fff8e8;border:1px solid #fce4aa;border-radius:9px}
+.innovation-card{border:1px solid #dfe2ff!important;background:linear-gradient(125deg,#f1f0ff,#f7faff 65%,#effbff)!important;border-radius:17px!important;padding:22px!important;box-shadow:inset 0 1px rgba(255,255,255,.9)}
+.innovation-card h3{font-size:19px;color:#35309b;margin:0 0 8px}.innovation-card p{color:#64718a;font-size:13px;line-height:1.65}
+.innovation-card textarea,#ocrResult{border:1px solid #d5dcf0!important;border-radius:11px!important;background:#fff!important;min-height:100px}
+.innovation-actions{gap:10px!important;margin:13px 0!important}.innovation-hint{color:#697990!important;font-size:12px!important}
+#fraudInvestigatorPage,#webcamOcrSection,#createInvoicePage{border-top:4px solid #6960e9}
+.investigation-case{border:1px solid #e1e6f0!important;border-radius:14px!important;box-shadow:0 5px 20px rgba(18,34,63,.035);padding:20px!important;margin:14px 0!important}
+.investigation-case select,.investigation-case textarea{max-width:100%!important}
+#ocrVideo{border-radius:14px;border:1px solid #dfe5f0;background:#0f172a;box-shadow:0 7px 20px rgba(0,0,0,.08)}
+#ocrResult{min-height:180px!important}
+.tableWrap{border:1px solid #e7ebf3;border-radius:13px;overflow:auto}table{min-width:860px}th{background:#f8faff!important;color:#718097;text-transform:uppercase;font-size:10px;letter-spacing:.7px;font-weight:800}td{color:#37475f}tbody tr:hover{background:#f8f9ff!important}
+.status{border-radius:999px;padding:6px 11px;font-size:11px;font-weight:800}
+#auth{max-width:480px;margin:55px auto;padding:34px;box-shadow:0 24px 70px rgba(33,43,87,.12);border:1px solid #e3e8f3}
+#auth h1{font-size:29px;font-weight:850}#auth .tabs{background:#f1f3fb;border-radius:12px;padding:5px}#auth .tabs button{flex:1;background:transparent;color:#6b7890}#auth .tabs button.active{background:#fff;color:#5147c5;box-shadow:0 2px 10px rgba(22,35,61,.08)}
+footer{color:#8490a5;padding:25px;font-size:11px}
+@media(min-width:851px){.dashboardLayout{display:flex}.sidebar{flex:0 0 247px!important;min-height:calc(100vh - 120px)!important;position:sticky!important;top:0!important;align-self:flex-start!important;border-radius:0!important}.dashboardContent{flex:1;min-width:0}}
+@media(max-width:1050px){#dashboardOverview>.suiteKpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}.dashboardContent{padding:19px!important}}
+@media(max-width:850px){.dashboardLayout{display:block!important}.sidebar{position:static!important;padding:17px!important}.sidebarBrand{margin:0 0 15px}.sidebarLabel,.sidebarFooter{display:none}.sidebarNav{display:flex!important;flex-direction:row!important;overflow-x:auto;gap:7px!important;padding:0 0 5px;scrollbar-width:thin}.sidebarLink{flex:0 0 auto;white-space:nowrap;padding:10px 12px!important}.sidebarLink:hover{transform:none}.dashboardContent{padding:18px!important}.studioHero{padding:23px}.suiteTopbar{padding:13px 16px}}
+@media(max-width:650px){body>header{padding:14px 16px}body>header p{font-size:11px}main{padding:0 10px;margin:12px auto}.dashboardLayout{border-radius:17px}.dashboardContent{padding:13px!important}.panel{padding:17px!important;border-radius:14px}.studioHero{margin:15px 0;padding:20px;border-radius:15px}.studioHeroActions a{flex:1 1 135px;padding:10px 8px;font-size:11px}.suiteTopbar{flex-wrap:wrap;gap:10px}.suiteTopbarRight{gap:9px}.suiteAvatar{width:31px;height:31px}.suiteWorkspaceLabel{font-size:9px}.studioHero h2{font-size:23px}.invoiceForm{grid-template-columns:1fr!important}.invoice-items-editor{padding:12px}.invoice-item-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}#dashboardOverview>.suiteKpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}#dashboardOverview>.suiteKpis article{padding:15px!important;min-height:98px}#dashboardOverview>.suiteKpis strong{font-size:18px}.tableHeading{flex-direction:column;align-items:stretch}.tableHeading input{max-width:100%}#auth{margin:20px auto;padding:22px}}
+@media(max-width:380px){#dashboardOverview>.suiteKpis{grid-template-columns:1fr!important}.suiteTopbarRight label{max-width:120px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

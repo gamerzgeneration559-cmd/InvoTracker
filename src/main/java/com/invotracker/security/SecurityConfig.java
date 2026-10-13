@@ -28,18 +28,20 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/", "/index.html", "/styles.css",
-                                "/app.js", "/api/auth/**", "/error"
+                                "/app.js", "/api/auth/register", "/api/auth/login", "/error"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/csrf").permitAll()
                         .requestMatchers(
                                 "/landing.html",
                                 "/styles.css",
                                 "/app.js",
-                                "/favicon.ico"
+                                "/favicon.ico", "/dashboard-v4.css", "/dashboard-v4.js", "/premium-ui.css", "/smartstock.js", "/smartstock.css"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler()))
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .logout(logout -> logout

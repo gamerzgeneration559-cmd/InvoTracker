@@ -40,7 +40,7 @@ public class ProductController {
             String sku,
             double price,
             int stock,
-            int lowStockLevel
+            int lowStockLevel, String barcode
     ) {
         static ProductView from(Product product) {
             return new ProductView(
@@ -49,7 +49,7 @@ public class ProductController {
                     product.getSku(),
                     product.getPrice(),
                     product.getStock(),
-                    product.getLowStockLevel()
+                    product.getLowStockLevel(), product.getBarcode()
             );
         }
     }
@@ -59,7 +59,7 @@ public class ProductController {
             String sku,
             double price,
             int stock,
-            int lowStockLevel
+            int lowStockLevel, String barcode
     ) {}
 
     // View only the logged-in user's products
@@ -116,6 +116,7 @@ public class ProductController {
         product.setPrice(request.price());
         product.setStock(request.stock());
         product.setLowStockLevel(request.lowStockLevel());
+        product.setBarcode(request.barcode()==null?null:request.barcode().trim());
 
         return ProductView.from(products.save(product));
     }
@@ -160,6 +161,7 @@ public class ProductController {
         product.setPrice(request.price());
         product.setStock(request.stock());
         product.setLowStockLevel(request.lowStockLevel());
+        product.setBarcode(request.barcode()==null?null:request.barcode().trim());
 
         return ProductView.from(products.save(product));
     }

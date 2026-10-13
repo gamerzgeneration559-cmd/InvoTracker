@@ -24,12 +24,13 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final AppUserRepository users;
+    private final LoginAttemptService attempts;
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final HttpSessionSecurityContextRepository contextRepository = new HttpSessionSecurityContextRepository();
 
-    public AuthController(AppUserRepository users, PasswordEncoder encoder, AuthenticationManager authenticationManager) {
-        this.users = users; this.encoder = encoder; this.authenticationManager = authenticationManager;
+    public AuthController(AppUserRepository users, PasswordEncoder encoder, AuthenticationManager authenticationManager, LoginAttemptService attempts) {
+        this.users = users; this.encoder = encoder; this.authenticationManager = authenticationManager; this.attempts = attempts;
     }
 
     public record RegisterRequest(@NotBlank @Size(max=120) String businessName,
@@ -54,8 +55,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public Map<String, String> login(@Valid @RequestBody LoginRequest body, HttpServletRequest request, HttpServletResponse response) {
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(body.email().toLowerCase().trim(), body.password()));
+        String key = request.getRemoteAddr() + ":" + body.email().toLowerCase().trim();
+        attempts.check(key);
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(body.email().toLowerCase().trim(), body.password()));
+        } catch (org.springframework.security.core.AuthenticationException ex) {
+            attempts.failed(key);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        }
+        attempts.success(key);
+        request.getSession(true);
+        request.changeSessionId();
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);

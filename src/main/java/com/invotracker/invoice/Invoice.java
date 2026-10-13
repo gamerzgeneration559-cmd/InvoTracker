@@ -39,6 +39,9 @@ public class Invoice {
     private LocalDate issueDate;
     @Column(nullable = false)
     private LocalDate dueDate;
+    @Column(length=32) private String templateType="STANDARD";
+    public String getTemplateType(){return templateType==null?"STANDARD":templateType;}
+    public void setTemplateType(String template){if(template==null||template.isBlank())return;String t=template.toUpperCase(java.util.Locale.ROOT);if(!java.util.Set.of("STANDARD","GROCERY","FREELANCER","MANUFACTURING","TRANSPORT","HEALTHCARE").contains(t))throw new IllegalArgumentException("Unsupported invoice template");this.templateType=t;}
     @Column(nullable = false, length = 20)
     private String status = "PENDING";
     @Column(nullable = false)
@@ -103,6 +106,18 @@ public class Invoice {
         refreshStatus();
     }
 
+    /** Store server-calculated mixed-rate item totals. */
+    public void applyItemizedTotals(String customerGstin, BigDecimal taxable, BigDecimal tax) {
+        if(cancelled) throw new IllegalArgumentException("Cancelled invoice");
+        if(taxable.signum()<=0||tax.signum()<0)throw new IllegalArgumentException("Invalid invoice totals");
+        BigDecimal total=taxable.add(tax).setScale(2,RoundingMode.HALF_UP);
+        if(total.compareTo(paidAmount)<0)throw new IllegalArgumentException("Total below recorded payments");
+        this.customerGstin=(customerGstin==null||customerGstin.isBlank())?null:customerGstin.trim();
+        this.taxableAmount=taxable.setScale(2,RoundingMode.HALF_UP);
+        this.totalAmount=total;
+        this.gstRate=tax.multiply(new BigDecimal("100")).divide(taxable,2,RoundingMode.HALF_UP);
+        refreshStatus();
+    }
     public void recordPayment(BigDecimal amount) {
         if (cancelled) throw new IllegalArgumentException("Cancelled invoices cannot receive payments");
         if (amount == null || amount.signum() <= 0) throw new IllegalArgumentException("Payment must be greater than zero");

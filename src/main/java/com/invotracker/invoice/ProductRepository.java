@@ -16,6 +16,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Find SKU within one user's products
     Optional<Product> findByOwnerIdAndSku(Long ownerId, String sku);
 
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.data.jpa.repository.Query("select p from Product p where p.id = :id and p.owner.id = :ownerId")
+    Optional<Product> lockOwned(@org.springframework.data.repository.query.Param("id") Long id,@org.springframework.data.repository.query.Param("ownerId") Long ownerId);
+
     // Check duplicate SKU for one user
     boolean existsByOwnerIdAndSku(Long ownerId, String sku);
 }

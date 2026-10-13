@@ -39,6 +39,17 @@ import com.invotracker.user.AppUser;
     @Column(nullable = false)
     private int stock;
 
+    @Column(length=100)
+    private String barcode;
+    public String getBarcode(){return barcode;}
+    public void setBarcode(String barcode){this.barcode=barcode;}
+
+    // Last confirmed supplier unit cost. Null until a supplier receipt is posted.
+    @Column(precision=12,scale=2)
+    private java.math.BigDecimal lastPurchaseCost;
+    public java.math.BigDecimal getLastPurchaseCost(){return lastPurchaseCost;}
+    public void setLastPurchaseCost(java.math.BigDecimal value){this.lastPurchaseCost=value;}
+
     @Column(nullable = false)
     private int lowStockLevel = 5;
 
